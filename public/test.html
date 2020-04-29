@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var arr = [2, 4, 6, 8, 10]
+        var result = []
+        window.onload = getSums
+        function getSums() {
+            const sum = (accumulator, currentValue) => accumulator + currentValue;
+            for (let x = 0; x < arr.length; x++) {
+                let arrCover = arr
+                var removed = arrCover.splice(x, 1)
+                let a = removed.reduce(sum)
+                result.push(a)
+            }
+            console.log(result)
+        }
+    </script>
+</body>
+
+</html>
