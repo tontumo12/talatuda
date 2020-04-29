@@ -5,8 +5,8 @@
                 <h3>Chào mừng đến với TalaTula!</h3>
                 <p>Đặt chỗ ở, homestay, nhà nghỉ, trải nghiệm và nhiều hơn nữa trên TalaTula</p>
                 <p>
-                    <b-link href="#">Đăng nhập</b-link> hoặc <span>
-                        <b-link href="#">đăng ký</b-link>
+                    <b-link href="/login">Đăng nhập</b-link> hoặc <span>
+                        <b-link href="/regiter">đăng ký</b-link>
                     </span> trải nghiệm !
                 </p>
             </b-col>
@@ -15,22 +15,22 @@
             <b-card-group deck>
                 <b-card img-src="tite1.png" img-alt="Card image" img-top>
                     <b-card-text>
-                        Some quick example text to build on the card and make up the bulk of the card's content.
+                        Đa dạng
                     </b-card-text>
                 </b-card>
                 <b-card img-src="tite1.png" img-alt="Card image" img-top>
                     <b-card-text>
-                        Some quick example text to build on the card and make up the bulk of the card's content.
+                        Trải nhiệm
                     </b-card-text>
                 </b-card>
                 <b-card img-src="tite1.png" img-alt="Card image" img-top>
                     <b-card-text>
-                        Some quick example text to build on the card and make up the bulk of the card's content.
+                        Giá cá
                     </b-card-text>
                 </b-card>
                 <b-card img-src="tite1.png" img-alt="Card image" img-top>
                     <b-card-text>
-                        Some quick example text to build on the card and make up the bulk of the card's content.
+                        An toàn
                     </b-card-text>
                 </b-card>
             </b-card-group>
@@ -38,7 +38,7 @@
         <b-row class="pt-5">
             <b-col class="text-left">
                 <h3>Ưu đãi độc quyền</h3>
-                <p>Chỉ có tại TalaTula, <b-link href="#">Book ngay!</b-link></p>
+                <p>Chỉ có tại TalaTula, <b-link href="/hotel">Book ngay!</b-link></p>
             </b-col>
         </b-row>
         <b-row>
@@ -59,22 +59,39 @@
         </b-row>
         <b-row>
             <b-card-group deck>
-                <b-card img-src="city.png" img-alt="Card image" img-top>
-                </b-card>
-                <b-card img-src="city.png" img-alt="Card image" img-top>
-                </b-card>
-                <b-card img-src="city.png" img-alt="Card image" img-top>
-                </b-card>
-                <b-card img-src="city.png" img-alt="Card image" img-top>
-                </b-card>
-                <b-card img-src="city.png" img-alt="Card image" img-top>
-                </b-card>
+                <template v-for="c in city">
+                    <b-card @click="gotoDetail(c.value)" overlay :key="c.value" :img-src="c.img" :img-alt="c.text" text-variant="white"
+                        :title="c.text" img-height="200">
+                    </b-card>
+                </template>
             </b-card-group>
         </b-row>
     </b-container>
 </template>
 <script>
+    import config from '@/config'
+    import router from '@/router'
     export default {
-
+        data() {
+            return {
+                
+            }
+        },
+        computed: {
+            city() {
+                return config.city
+            }
+        },
+        mounted() {
+            const {
+                    dispatch
+                } = this.$store;
+                dispatch('link/saveUrl', window.location.href)
+        },
+        methods: {
+            gotoDetail(data) {
+                router.push(`/hotel?c=${data}`)
+            }
+        },
     }
 </script>
