@@ -47,10 +47,10 @@
                             </b-button>
                         </td>
                         <td>
-                            <b-button variant="outline-warning" class="">
+                            <b-button v-b-modal.modal-edit-hotel variant="outline-warning" @click="getInfoHotel(item)" class="">
                                 <b-icon icon="brush"></b-icon>
                             </b-button>
-                            <b-button variant="outline-danger" class="ml-2">
+                            <b-button variant="outline-danger" class="ml-2" @click="modalShow = true,hotelInfo = item">
                                 <b-icon icon="trash-fill"></b-icon>
                             </b-button>
                         </td>
@@ -179,6 +179,121 @@
                 </table>
             </b-row>
         </b-modal>
+        <b-modal ref="modal-edit-hotel" centered title="Sửa thông tin khách sạn" hide-footer>
+            <b-row class="my-1">
+                <b-col sm="2">
+                    <label for="input-none">Tên:</label>
+                </b-col>
+                <b-col sm="10">
+                    <b-form-input v-model="hotelInfo.name" id="input-none" placeholder="Tên khách sạn"></b-form-input>
+                </b-col>
+            </b-row>
+            <b-row class="my-1">
+                <b-col sm="2">
+                    <label for="input-none">Địa chỉ:</label>
+                </b-col>
+                <b-col sm="10">
+                    <b-form-input v-model="hotelInfo.address" id="input-none" placeholder="Số, đường, khu vực">
+                    </b-form-input>
+                </b-col>
+            </b-row>
+            <b-row class="my-1">
+                <b-col sm="2">
+                    <label for="input-none">Thành phố:</label>
+                </b-col>
+                <b-col sm="10">
+                    <b-form-select v-model="hotelInfo.location" :options="city"></b-form-select>
+                </b-col>
+            </b-row>
+            <b-row class="my-1">
+                <b-col sm="2">
+                    <label for="input-none">Số sao:</label>
+                </b-col>
+                <b-col sm="10">
+                    <b-form-rating v-model="hotelInfo.level" variant="warning" class="mb-2"></b-form-rating>
+                </b-col>
+            </b-row>
+            <b-row class="my-1">
+                <b-col sm="2">
+                    <label for="input-none">Ảnh:</label>
+                </b-col>
+                <b-col sm="10">
+                    <b-img v-bind="mainProps" alt="Circle image" :src="hotelInfo.img"></b-img>
+                </b-col>
+            </b-row>
+            <b-row class="my-1">
+                <b-col sm="2">
+                    <label for="input-none">Mô tả:</label>
+                </b-col>
+                <b-col sm="10">
+                    <b-form-textarea id="textarea" v-model="hotelInfo.detail" placeholder="Nhập mô tả....." rows="3"
+                        max-rows="6"></b-form-textarea>
+                </b-col>
+            </b-row>
+            <b-row class="mt-3">
+                <b-col class="text-right">
+                    <b-button variant="primary" class="my-2 my-sm-0" @click="updateInfoHotel">
+                        Xác nhận
+                    </b-button>
+                </b-col>
+            </b-row>
+        </b-modal>
+        <b-modal v-model="modalShow" :title="title(hotelInfo.name)" hide-footer>
+            <b-row class="my-1">
+                <b-col sm="2">
+                    <label for="input-none">Địa chỉ:</label>
+                </b-col>
+                <b-col sm="10">
+                    <b-form-input disabled v-model="hotelInfo.address" id="input-none" placeholder="Số, đường, khu vực">
+                    </b-form-input>
+                </b-col>
+            </b-row>
+            <b-row class="my-1">
+                <b-col sm="2">
+                    <label for="input-none">Thành phố:</label>
+                </b-col>
+                <b-col sm="10">
+                    <b-form-select disabled v-model="hotelInfo.location" :options="city"></b-form-select>
+                </b-col>
+            </b-row>
+            <b-row class="my-1">
+                <b-col sm="2">
+                    <label for="input-none">Số sao:</label>
+                </b-col>
+                <b-col sm="10">
+                    <b-form-rating disabled v-model="hotelInfo.level" variant="warning" class="mb-2"></b-form-rating>
+                </b-col>
+            </b-row>
+            <b-row class="my-1">
+                <b-col sm="2">
+                    <label for="input-none">Ảnh:</label>
+                </b-col>
+                <b-col sm="10">
+                    <b-img v-bind="mainProps" alt="Circle image" :src="hotelInfo.img"></b-img>
+                </b-col>
+            </b-row>
+            <b-row class="my-1">
+                <b-col sm="2">
+                    <label for="input-none">Mô tả:</label>
+                </b-col>
+                <b-col sm="10">
+                    <b-form-textarea disabled id="textarea" v-model="hotelInfo.detail" placeholder="Nhập mô tả....." rows="3"
+                        max-rows="6"></b-form-textarea>
+                </b-col>
+            </b-row>
+            <b-row class="mt-3">
+                <b-col class="text-left">
+                    <b-button class="my-2 my-sm-0" @click="modalShow = false">
+                        Huỷ bỏ
+                    </b-button>
+                </b-col>
+                <b-col class="text-right">
+                    <b-button variant="danger" class="my-2 my-sm-0" @click="deleteHotell">
+                        Xác nhận
+                    </b-button>
+                </b-col>
+            </b-row>
+        </b-modal>
     </b-container>
 </template>
 <style>
@@ -239,7 +354,9 @@
                     prices: 0,
                     detail: '',
                     number: 0
-                }
+                },
+                hotelInfo:{},
+                modalShow: false
             }
         },
         computed: {
@@ -251,8 +368,17 @@
             }
         },
         methods: {
+            title() {
+                return `Bạn có muốn xoá khách sạn ${this.hotelInfo.name}`
+            },
             handleFileUpload() {
                 this.newHotel.img = this.$refs.file.files[0];
+                console.log(this.$refs.file.files)
+            },
+            handleFileUploadFix() {
+                this.hotelInfo.img = this.$refs.file.files[0];
+                this.hotelInfo = {...this.hotelInfo}
+                this.hotelInfo.newImg = true
             },
             getlist() {
                 hotel.listHotel().then(result => {
@@ -269,7 +395,7 @@
                 if (data === "" || data === null) {
                     return ""
                 } else {
-                    let a = config.location.filter(el => el.value == data)
+                    let a = config.city.filter(el => el.value == data)
                     return a[0].text
                 }
             },
@@ -293,6 +419,43 @@
                 } = this.$store;
                 dispatch('alert/error', `${data}`)
             },
+            getInfoHotel(data) {
+                this.hotelInfo = data
+                this.$refs['modal-edit-hotel'].show()
+            },
+            updateInfoHotel() {
+                let a = JSON.parse(localStorage.getItem('host'));
+                let formData = new FormData();
+                if (this.hotelInfo.newImg == true) {
+                    formData.append('file', this.hotelInfo.img);
+                }else{
+                    formData.append('img', this.hotelInfo.img);
+                }
+                formData.append('newImg', this.hotelInfo.newImg);
+                formData.append('name', this.hotelInfo.name);
+                formData.append('address', this.hotelInfo.address);
+                formData.append('level', this.hotelInfo.level);
+                formData.append('location', this.hotelInfo.location);
+                formData.append('detail', this.hotelInfo.detail);
+                formData.append('type', 1);
+                axios.put(`${config.apiUrl}user/${a.id}/hotel/${this.hotelInfo.id}`,
+                        formData, {
+                            headers: authHost()
+                        }
+                    ).then(result => {
+                        if (result.data.status == 'SUCCESS') {
+                            this.alertSuccess("update thành công")
+                            this.$refs['modal-edit-hotel'].hide()
+                        } else {
+                            this.alertError('update thất bại')
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    }).finally(() => {
+                        this.getlist()
+                    });
+            },
             createHotel() {
                 let a = JSON.parse(localStorage.getItem('host'));
                 let formData = new FormData();
@@ -310,6 +473,15 @@
                     ).then(result => {
                         if (result.data.status == 'SUCCESS') {
                             this.alertSuccess("thành công")
+                            this.newHotel= {
+                                name: '',
+                                address: '',
+                                location: 'HN',
+                                level: 1,
+                                img: null,
+                                detail: ''
+                            }
+                            this.$refs['modal-add-hotel'].hide()
                         } else {
                             this.alertError('thất bại')
                         }
@@ -335,6 +507,19 @@
                         }
                     } else {
                         this.alertError('Thất bại')
+                    }
+                })
+            },
+            deleteHotell() {
+                let a = JSON.parse(localStorage.getItem('host'));
+                hotel.deleteHotel(a.id,this.hotelInfo.id).then(result => {
+                    if (result.status == 'SUCCESS') {
+                        this.modalShow = false
+                        this.alertSuccess(`Đã xoá khách sạn ${this.hotelInfo.name}`)
+                        this.getlist()
+                    } else {
+                        this.modalShow = false
+                        this.alertError(`xoá khách sạn ${this.hotelInfo.name} thất bại`)
                     }
                 })
             }
