@@ -119,22 +119,6 @@ module.exports = {
     update: (req, res) => {
         let data = req.body;
         let userId = req.params.userId;
-        // let dataSql = {}
-        // if(data.firstName != null && data.firstName != "" && data.firstName != undefined){dataSql.fistName = data.fistName}
-        // if(data.lastName != null && data.lastName != "" && data.lastName != undefined){dataSql.lastName = data.lastName}
-        // if(data.phone != null && data.phone != "" && data.phone != undefined){dataSql.phone = data.phone}
-        // if(data.email != null && data.email != "" && data.email != undefined){dataSql.email = data.email}
-        // if(data.location != null && data.location != "" && data.location != undefined){dataSql.location = data.location}
-        // if(data.city != null && data.city != "" && data.city != undefined){dataSql.city = data.city}
-        // let test = JSON.stringify(dataSql)
-        // let stringCover = test.replace(/":/gi,"=")
-        // let strCover = stringCover.replace(/,"/gi,',')
-        // let strCover1 = strCover.replace('{"','')
-        // let sql = 'UPDATE user_info SET ? WHERE id_user = ?'
-        // db.query(sql, [strCover1.replace("}",""), userId], (err, response) => {
-        //     if (err) throw err
-        //     res.json({status: 'SUCCESS',message: 'Sửa thông tin user thành công', response: userId})
-        // })
         let sql = 'UPDATE user_info SET firstName=?,lastName=?, phone=?, email=?, location=?, city=? WHERE id_user = ?'
         db.query(sql, [data.firstName, data.lastName, data.phone, data.email, data.location, data.city, userId], (err, response) => {
             if (err) throw err
@@ -220,4 +204,50 @@ module.exports = {
             })
         })
     },
+    getInfoUser: (req, res) => {
+        let sql = 'SELECT * FROM user_info_repas WHERE id_user = ?'
+        db.query(sql, [req.params.userId], (err, response) => {
+            if (err) throw err
+            res.json({
+                status: 'SUCCESS',
+                message: 'Lấy thông tin thành công',
+                response: response
+            })
+        })
+    },
+    createInfoUser: (req, res) => {
+        let data = req.body;
+        let sql = 'INSERT INTO user_info_repas(weight,height,type,id_user) VALUES(?,?,?,?)'
+        db.query(sql, [data.weight,data.height,data.type,req.params.userId], (err, response) => {
+            if (err) throw err
+            res.json({
+                status: 'SUCCESS',
+                message: 'Gửi thông tin thành công',
+                response: response
+            })
+        })
+    },
+    updateInfoUser: (req, res) => {
+        let data = req.body;
+        let sql = 'UPDATE user_info_repas SET weight=?,height=?,type=? WHERE id_user = ?'
+        db.query(sql, [data.weight,data.height,data.type,req.params.userId], (err, response) => {
+            if (err) throw err
+            res.json({
+                status: 'SUCCESS',
+                message: 'Sửa thông tin thành công',
+                response: response
+            })
+        })
+    },
+    daleteInfoUser: (req, res) => {
+        let sql = 'DELETE FROM user_info_repas WHERE id_user = ?'
+        db.query(sql, [req.params.userId], (err, response) => {
+            if (err) throw err
+            res.json({
+                status: 'SUCCESS',
+                message: 'xoá',
+                response: response
+            })
+        })
+    }
 }

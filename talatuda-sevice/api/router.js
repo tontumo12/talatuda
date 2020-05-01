@@ -52,21 +52,23 @@ module.exports = function (app) {
     .get(room.getRoomHotel)
   app.route('/hotel/:hotelId/room/:roomId') //done
     .get(room.getDetailRoom)
-  app.route('/hotel/:hotelId/repas') //done
-    .get(repas.getRepasHotel)
   app.route('/hotel/:hotelId/comment')
     .get(comment.getCommentRoom) //done
   app.use(AuthMiddleWare.isAuth) // middeware
   app.route('/user/:userId')
     .put(user.update) //done
     .delete(user.delete) //done
-  //.post(user.addInfoUser) //done
   app.route('/user/:userId/hobis')
     .post(user.addHobisUser) //done
     .get(user.allHobisUser) //done
   app.route('/user/:userId/hobis/:hobisId')
     .put(user.updateHobisUser) //done
     .delete(user.deleteHobisUser) //done
+  app.route('/user/:userId/info')
+    .post(user.createInfoUser) //done
+    .get(user.getInfoUser) //done
+    .put(user.updateInfoUser) //done
+    .delete(user.daleteInfoUser) //done
   app.post('/user/:userId/hotel', upload.single('file'), hotel.createHotel)
   app.put('/user/:userId/hotel/:hotelId',upload.single('file'),hotel.updateHotel)
   app.route('/user/:userId/hotel/:hotelId')
@@ -88,4 +90,11 @@ module.exports = function (app) {
   app.route('/user/:userId/room/:roomId/booking/:bookingId')
     .put(booking.updateBookingRoom) //done
     .delete(booking.deleteBookingRoom) //done
+  app.route('/repas') //done
+    .get(repas.getRepas)
+  app.post('/repas', upload.single('file'), repas.createHotel)
+  app.put('/repas/:repasId', upload.single('file'), repas.updateRepas)
+  app.route('/repas/:repasId') //done
+    .get(repas.getDetailRepas)
+    .delete(repas.deleteRepas)
 };
