@@ -3,6 +3,7 @@
     <navbar/>
     <router-view></router-view>
     <footerbar class="mt-5"/>
+    <alert />
   </div>
 </template>
 
@@ -10,11 +11,13 @@
 // @ is an alias to /src
 import navbar from '@/components/navbar.vue'
 import footerbar from '@/components/footer.vue'
+import alert from '@/components/alert.vue'
 export default {
   name: 'Home',
   components: {
     navbar,
-    footerbar
+    footerbar,
+    alert
   }
 }
 </script>
