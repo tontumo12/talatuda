@@ -92,7 +92,7 @@ module.exports = function (app) {
     .delete(booking.deleteBookingRoom) //done
   app.route('/repas') //done
     .get(repas.getRepas)
-  app.post('/repas', upload.single('file'), repas.createHotel)
+  app.post('/repas', upload.single('file'), repas.createRepas)
   app.put('/repas/:repasId', upload.single('file'), repas.updateRepas)
   app.route('/repas/:repasId') //done
     .get(repas.getDetailRepas)
