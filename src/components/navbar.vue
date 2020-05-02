@@ -25,10 +25,10 @@
           <b-link href="/host" class="mr-3">Host</b-link>
           <b-link href="/regiter" class="mr-3">Đăng ký</b-link>
           <b-link href="/login" class="mr-3">Đăng nhập</b-link>
-          <b-nav-item-dropdown right v-if="userCheck">
+          <b-nav-item-dropdown right v-if="userInfo">
             <!-- Using 'button-content' slot -->
             <template v-slot:button-content>
-              <em>{{userInfo.firstName}} {{userInfo.lastName}}</em>
+              <span>{{name()}}</span>
             </template>
             <b-dropdown-item href="#">Profile</b-dropdown-item>
             <b-dropdown-item @click="logOut()">Sign Out</b-dropdown-item>
@@ -40,6 +40,9 @@
 </template>
 <script>
   export default {
+    props: {
+      userInfo: null,
+    },
     data() {
       return {
         mainProps: {
@@ -48,29 +51,18 @@
         },
         value: '',
         text: '',
-        userInfo:{},
-        userCheck: false
       }
     },
     methods: {
-      takeUserInfo(){
-        let a = JSON.parse(localStorage.getItem('user'))
-        if(a == null){
-          this.userInfo = a
-          this.userCheck = true
-        }else{
-          this.userInfo = {}
-          this.userCheck = false
-        }
-      },
       logOut(){
-        this.userInfo = {}
-        this.userCheck = false
         localStorage.removeItem('user')
+      },
+      name(){
+        return this.userInfo.lastName
+      },
+      fullName(){
+        return `${this.userInfo.firstName} ${this.userInfo.lastName}`
       }
-    },
-    created(){
-      this.takeUserInfo()
     }
   }
 </script>
