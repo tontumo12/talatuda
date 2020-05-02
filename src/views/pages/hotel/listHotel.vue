@@ -15,8 +15,8 @@
                 </h5>
             </b-breadcrumb-item>
         </b-breadcrumb>
-        <b-row cols="4" class="mt-3">
-            <b-col v-for="d in data" :key='d.id'>
+        <b-row cols="4">
+            <b-col v-for="d in data" :key='d.id' class="mt-3">
                 <b-card :title="d.name" :img-src="d.img" :img-alt="d.name" img-height="200" img-top tag="article"
                     style="max-width: 20rem;" class="mb-2">
                     <b-card-text>

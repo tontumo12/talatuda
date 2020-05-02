@@ -25,11 +25,13 @@
           <b-link href="/host" class="mr-3">Host</b-link>
           <b-link href="/regiter" class="mr-3">Đăng ký</b-link>
           <b-link href="/login" class="mr-3">Đăng nhập</b-link>
-          <b-nav-item-dropdown text="Lang" right>
-            <b-dropdown-item href="#">EN</b-dropdown-item>
-            <b-dropdown-item href="#">ES</b-dropdown-item>
-            <b-dropdown-item href="#">RU</b-dropdown-item>
-            <b-dropdown-item href="#">FA</b-dropdown-item>
+          <b-nav-item-dropdown right v-if="userCheck">
+            <!-- Using 'button-content' slot -->
+            <template v-slot:button-content>
+              <em>{{userInfo.firstName}} {{userInfo.lastName}}</em>
+            </template>
+            <b-dropdown-item href="#">Profile</b-dropdown-item>
+            <b-dropdown-item @click="logOut()">Sign Out</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
@@ -45,8 +47,30 @@
           height: 45
         },
         value: '',
-        text: ''
+        text: '',
+        userInfo:{},
+        userCheck: false
       }
+    },
+    methods: {
+      takeUserInfo(){
+        let a = JSON.parse(localStorage.getItem('user'))
+        if(a == null){
+          this.userInfo = a
+          this.userCheck = true
+        }else{
+          this.userInfo = {}
+          this.userCheck = false
+        }
+      },
+      logOut(){
+        this.userInfo = {}
+        this.userCheck = false
+        localStorage.removeItem('user')
+      }
+    },
+    created(){
+      this.takeUserInfo()
     }
   }
 </script>
