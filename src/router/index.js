@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Main from '../views/pages/Main.vue'
-import Login from '../views/pages/Login.vue'
+import Login from '../views/pages/login'
 import signin from '../views/pages/login/signin.vue'
 import signup from '../views/pages/login/signup.vue'
 
