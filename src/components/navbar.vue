@@ -25,11 +25,13 @@
           <b-link href="/host" class="mr-3">Host</b-link>
           <b-link href="/regiter" class="mr-3">Đăng ký</b-link>
           <b-link href="/login" class="mr-3">Đăng nhập</b-link>
-          <b-nav-item-dropdown text="Lang" right>
-            <b-dropdown-item href="#">EN</b-dropdown-item>
-            <b-dropdown-item href="#">ES</b-dropdown-item>
-            <b-dropdown-item href="#">RU</b-dropdown-item>
-            <b-dropdown-item href="#">FA</b-dropdown-item>
+          <b-nav-item-dropdown right v-if="userInfo">
+            <!-- Using 'button-content' slot -->
+            <template v-slot:button-content>
+              <span>{{name()}}</span>
+            </template>
+            <b-dropdown-item href="#">Profile</b-dropdown-item>
+            <b-dropdown-item @click="logOut()">Sign Out</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
@@ -38,6 +40,9 @@
 </template>
 <script>
   export default {
+    props: {
+      userInfo: null,
+    },
     data() {
       return {
         mainProps: {
@@ -45,7 +50,18 @@
           height: 45
         },
         value: '',
-        text: ''
+        text: '',
+      }
+    },
+    methods: {
+      logOut(){
+        localStorage.removeItem('user')
+      },
+      name(){
+        return this.userInfo.lastName
+      },
+      fullName(){
+        return `${this.userInfo.firstName} ${this.userInfo.lastName}`
       }
     }
   }
