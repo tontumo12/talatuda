@@ -68,14 +68,10 @@ export default {
         },
         {
             value: 3,
-            text: 'Chờ thanh toán'
+            text: 'Đang sử dụng'
         },
         {
             value: 4,
-            text: 'Đã thanh toán'
-        },
-        {
-            value: 5,
             text: 'Đã trả phòng'
         }
     ],
