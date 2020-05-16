@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <navbar :userInfo="userInfo"/>
+    <navbar />
     <router-view></router-view>
     <footerbar class="mt-5"/>
     <alert />
@@ -21,21 +21,10 @@ export default {
   },
   data() {
     return {
-      userInfo: null
     }
   },
   methods: {
-    takeUserInfo(){
-      let a = JSON.parse(localStorage.getItem('user'))
-      if(a == null){
-        this.userInfo = a
-      }else{
-        this.userInfo = {}
-      }
-    },
-  },
-  created(){
-    this.takeUserInfo()
+    
   }
 }
 </script>
