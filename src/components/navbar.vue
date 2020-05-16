@@ -14,7 +14,7 @@
             <b-form-datepicker id="example-datepicker" placeholder="Ngày" v-model="value" class="mb-2">
             </b-form-datepicker>
             <b-form-input v-model="text" placeholder="Số người" class="mb-2 ml-2"></b-form-input>
-            <b-button size="sm" class="my-2 my-sm-0" type="submit">
+            <b-button size="sm" class="mx-2 my-sm-0">
               <b-icon icon="search"></b-icon>
             </b-button>
           </b-nav-form>
@@ -24,15 +24,11 @@
         <b-navbar-nav class="ml-auto">
           <b-link href="/host" class="mr-3">Host</b-link>
           <b-link href="/regiter" class="mr-3">Đăng ký</b-link>
-          <b-link href="/login" class="mr-3">Đăng nhập</b-link>
-          <b-nav-item-dropdown right v-if="userInfo">
-            <!-- Using 'button-content' slot -->
-            <template v-slot:button-content>
-              <span>{{name()}}</span>
-            </template>
+          <b-nav-item-dropdown :text="name" right v-if="userInfo">
             <b-dropdown-item href="#">Profile</b-dropdown-item>
             <b-dropdown-item @click="logOut()">Sign Out</b-dropdown-item>
           </b-nav-item-dropdown>
+          <b-link href="/login" class="mr-3" v-else>Đăng nhập</b-link>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -40,9 +36,6 @@
 </template>
 <script>
   export default {
-    props: {
-      userInfo: null,
-    },
     data() {
       return {
         mainProps: {
@@ -51,18 +44,34 @@
         },
         value: '',
         text: '',
+        userInfo: null
       }
     },
+    computed: {
+      name() {
+        let a = this.userInfo.lastName
+        return a
+      },
+    },
     methods: {
-      logOut(){
+      logOut() {
         localStorage.removeItem('user')
       },
-      name(){
-        return this.userInfo.lastName
-      },
-      fullName(){
+      fullName() {
         return `${this.userInfo.firstName} ${this.userInfo.lastName}`
-      }
+      },
+      takeUserInfo() {
+        let a = JSON.parse(localStorage.getItem('user'))
+        this.userInfo = a
+      },
+    },
+    created() {
+      this.takeUserInfo()
     }
   }
 </script>
+<style>
+.nav-link {
+  padding: 0 !important
+}
+</style>

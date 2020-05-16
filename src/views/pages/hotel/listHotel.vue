@@ -66,6 +66,11 @@
                 } = this.$store;
                 dispatch('link/saveUrl', window.location.href)
         },
+        watch: {
+            c () {
+                this.getlist()
+            }
+        },
         methods: {
             sum(data) {
                 if (data.length === 0) {
