@@ -13,7 +13,8 @@ export const booking = {
     bookingRoom,
     getAllBookingHotel,
     updateState,
-    deleteBooking
+    deleteBooking,
+    bookingUser
 }
 
 function bookingRoom(userId,roomId,body) {
@@ -32,7 +33,7 @@ function getAllBookingHotel(userId) {
     }, 4)
 }
 function updateState(body, userId, bookingId) {
-    return responseService.fetchRetry(`${config.apiUrl}user/${userId}/booking/${bookingId}`, {
+    return responseService.fetchRetry(`${config.apiUrl}host/${userId}/booking/${bookingId}`, {
         method: 'PUT',
         headers: authHost(),
         mode: 'cors', 
@@ -40,8 +41,15 @@ function updateState(body, userId, bookingId) {
     }, 4)
 }
 function deleteBooking(userId, bookingId) {
-    return responseService.fetchRetry(`${config.apiUrl}user/${userId}/booking/${bookingId}`, {
+    return responseService.fetchRetry(`${config.apiUrl}host/${userId}/booking/${bookingId}`, {
         method: 'DELETE',
+        headers: authHost(),
+        mode: 'cors', 
+    }, 4)
+}
+function bookingUser(userId) {
+    return responseService.fetchRetry(`${config.apiUrl}user/${userId}/booking`, {
+        method: 'GET',
         headers: authHost(),
         mode: 'cors', 
     }, 4)
