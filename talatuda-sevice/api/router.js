@@ -87,7 +87,9 @@ module.exports = function (app) {
     .post(booking.createBookingRoom) //done
   app.route('/host/:userId/booking')
     .get(booking.getBookingRoom) //done
-  app.route('/user/:userId/booking/:bookingId')
+  app.route('/user/:userId/booking')
+    .get(booking.getBookingUser) //done
+  app.route('/host/:userId/booking/:bookingId')
     .put(booking.updateStateBookingRoom) //done
     .delete(booking.deleteBookingRoom) //done
   app.route('/repas') //done

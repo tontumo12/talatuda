@@ -25,7 +25,7 @@
           <b-link href="/host" class="mr-3">Host</b-link>
           <b-link href="/regiter" class="mr-3">Đăng ký</b-link>
           <b-nav-item-dropdown :text="name" right v-if="userInfo">
-            <b-dropdown-item href="#">Profile</b-dropdown-item>
+            <b-dropdown-item @click="show = !show">Profile</b-dropdown-item>
             <b-dropdown-item @click="logOut()">Sign Out</b-dropdown-item>
           </b-nav-item-dropdown>
           <b-link href="/login" class="mr-3" v-else>Đăng nhập</b-link>
@@ -44,13 +44,25 @@
         },
         value: '',
         text: '',
-        userInfo: null
+        userInfo: null,
+        show: false
       }
     },
     computed: {
       name() {
         let a = this.userInfo.lastName
         return a
+      },
+    },
+    watch: {
+      show() {
+        console.log(this.show)
+        if(this.show === true){
+          this.showDialog()
+        }
+      },
+      '$store.state.alert.booking': function () {
+        this.show = this.$store.state.alert.booking
       },
     },
     methods: {
@@ -64,6 +76,18 @@
         let a = JSON.parse(localStorage.getItem('user'))
         this.userInfo = a
       },
+      showDialog() {
+        const {
+          dispatch
+        } = this.$store;
+        dispatch('alert/showBooking')
+      },
+      hideDialog() {
+        const {
+          dispatch
+        } = this.$store;
+        dispatch('alert/hideBooking')
+      }
     },
     created() {
       this.takeUserInfo()
@@ -71,7 +95,7 @@
   }
 </script>
 <style>
-.nav-link {
-  padding: 0 !important
-}
+  .nav-link {
+    padding: 0 !important
+  }
 </style>
