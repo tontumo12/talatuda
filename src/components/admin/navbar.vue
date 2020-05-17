@@ -10,9 +10,9 @@
       <b-collapse id="nav-collapse" is-nav>
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
-          <b-nav-item-dropdown text="user" right>
+          <b-nav-item-dropdown :text="name" right>
             <b-dropdown-item href="#">Profile</b-dropdown-item>
-            <b-dropdown-item href="#">Logout</b-dropdown-item>
+            <b-dropdown-item @click="logOut()">Logout</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
       </b-collapse>
@@ -27,9 +27,29 @@
           width: 45,
           height: 45
         },
-        value: '',
-        text: ''
+        userInfo: null
       }
+    },
+    computed: {
+      name() {
+        let a = this.userInfo.email
+        return a
+      },
+    },
+    methods: {
+      logOut() {
+        localStorage.removeItem('host')
+      },
+      fullName() {
+        return `${this.userInfo.firstName} ${this.userInfo.lastName}`
+      },
+      takeUserInfo() {
+        let a = JSON.parse(localStorage.getItem('host'))
+        this.userInfo = a
+      },
+    },
+    created() {
+      this.takeUserInfo()
     }
   }
 </script>
