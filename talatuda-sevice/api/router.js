@@ -75,8 +75,7 @@ module.exports = function (app) {
     .delete(hotel.deleteHotel) //done
   app.route('/user/:userId/hotel/:hotelId/room')
     .post(room.createRoom) //done
-  app.route('/user/:userId/hotel/:hotelId/room/:roomId')
-    .put(room.updateRoom) //done
+  app.route('/user/:userId/room/:roomId')
     .delete(room.deleteRoom) //done
   app.route('/user/:userId/hotel/:hotelId/comment')
     .post(comment.createCommentRoom) //done

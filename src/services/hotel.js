@@ -12,7 +12,8 @@ export const hotel = {
     deleteHotel,
     getListRoom,
     createRoom,
-    listHotelCity
+    listHotelCity,
+    deleteRoom
 }
 
 function listHotel() {
@@ -77,5 +78,13 @@ function createRoom(body,hotelId,userId) {
         headers: authHost(),
         mode: 'cors',
         body: JSON.stringify(body)
+    }, 4)
+}
+
+function deleteRoom(roomId,userId) {
+    return responseService.fetchRetry(`${config.apiUrl}user/${userId}/room/${roomId}`, {
+        method: 'DELETE',
+        headers: authHost(),
+        mode: 'cors'
     }, 4)
 }
