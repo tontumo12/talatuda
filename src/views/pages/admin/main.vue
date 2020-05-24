@@ -523,8 +523,11 @@
             deleteRoom(item) {
                 let a = JSON.parse(localStorage.getItem('host'));
                 hotel.deleteRoom(item.id,a.id).then(result => {
-                    if(result.data.status === "SUCCESS"){
+                    if(result.status === "SUCCESS"){
                         this.alertSuccess('Xóa phòng số' + item.id +' thành công')
+                        let a = this.dataRoom.filter(a => {a.id === item.id})
+                        this.dataRoom.splice(this.dataRoom.indexOf(a[0]))
+                        this.dataRoom = [...this.dataRoom]
                     }else{
                         this.alertError('Fail')
                     }

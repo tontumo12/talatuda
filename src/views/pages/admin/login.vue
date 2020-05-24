@@ -27,9 +27,11 @@
             </b-col>
             <b-col align-self="start"></b-col>
         </b-row>
+        <alert />
     </b-container>
 </template>
 <script>
+    import alert from '@/components/alert.vue'
     import {
         user
     } from '@/services/user'
@@ -51,7 +53,7 @@
                     username: this.form.username,
                     password: this.form.password
                 }
-                user.login(a).then(result => {
+                user.loginHost(a).then(result => {
                     if (result.status == 'SUCCESS') {
                         let a = jwt.decode(result.response.accessToken)
                         a.accessToken = result.response.accessToken
@@ -59,7 +61,7 @@
                         localStorage.setItem('host', JSON.stringify(a))
                         router.push(`host`)
                     } else {
-                        this.alertError('Lỗi')
+                        this.alertError(result.message)
                     }
                 })
             },
@@ -81,6 +83,9 @@
                 } = this.$store;
                 dispatch('alert/error', `${data}`)
             },
-        }
+        },
+        components: {
+            alert
+        },
     }
 </script>
