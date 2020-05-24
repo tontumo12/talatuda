@@ -3,7 +3,7 @@
         <b-row>
             <b-card-group deck>
                 <template v-for="c in city">
-                    <b-card overlay :key="c.value" :img-src="c.img" :img-alt="c.text" text-variant="white"
+                    <b-card @click="gotoDetailCity(c.value)" overlay :key="c.value" :img-src="c.img" :img-alt="c.text" text-variant="white"
                         :title="c.text" img-height="200">
                     </b-card>
                 </template>
@@ -125,6 +125,9 @@
             },
             gotoDetail(data) {
                 router.push(`hotel/${data}`)
+            },
+            gotoDetailCity(data) {
+                router.push(`/hotel?c=${data}`)
             }
         },
         created() {

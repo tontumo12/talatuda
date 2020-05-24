@@ -3,7 +3,8 @@ export const alert = {
     namespaced: true,
     state: {
         type: null,
-        message: null
+        message: null,
+        booking: false
     },
     actions:
     {
@@ -18,6 +19,14 @@ export const alert = {
         clear({ commit }, message)
         {
             commit('success', message);
+        },
+        showBooking({ commit })
+        {
+            commit('trueBooking');
+        },
+        hideBooking({ commit })
+        {
+            commit('falseBooking');
         }
     },
     mutations: {
@@ -34,6 +43,14 @@ export const alert = {
         clear(state) {
             state.type = null;
             state.message = null;
+        },
+        trueBooking(state)
+        {
+            state.booking = true
+        },
+        falseBooking(state)
+        {
+            state.booking = false
         }
     }
 }
