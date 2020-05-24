@@ -41,7 +41,11 @@ export default {
         {
             value: 'LC',
             text: 'Lào Cai'
-        }
+        },
+        {
+            value: 'HP',
+            text: 'Hải phòng'
+        },
     ],
     typeRoom:[
         {
@@ -110,6 +114,11 @@ export default {
             value: 'QN',
             text: 'Quảng Ninh',
             img: '/qn.png'
-        }
+        },
+        {
+            value: 'HP',
+            text: 'Hải Phòng',
+            img: '/hp.png'
+        },
     ]
 }
