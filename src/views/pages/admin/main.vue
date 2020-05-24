@@ -141,10 +141,7 @@
                             <td>{{item.detail}}</td>
                             <td>{{item.number}} phòng</td>
                             <td>
-                                <b-button variant="outline-warning" class="">
-                                    <b-icon icon="brush"></b-icon>
-                                </b-button>
-                                <b-button variant="outline-danger" class="ml-2">
+                                <b-button variant="outline-danger" class="ml-2" @click="deleteRoom(item)">
                                     <b-icon icon="trash-fill"></b-icon>
                                 </b-button>
                             </td>
@@ -520,6 +517,16 @@
                     } else {
                         this.modalShow = false
                         this.alertError(`xoá khách sạn ${this.hotelInfo.name} thất bại`)
+                    }
+                })
+            },
+            deleteRoom(item) {
+                let a = JSON.parse(localStorage.getItem('host'));
+                hotel.deleteRoom(item.id,a.id).then(result => {
+                    if(result.data.status === "SUCCESS"){
+                        this.alertSuccess('Xóa phòng số' + item.id +' thành công')
+                    }else{
+                        this.alertError('Fail')
                     }
                 })
             }
