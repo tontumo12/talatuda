@@ -46,6 +46,10 @@ export default {
             value: 'HP',
             text: 'Hải phòng'
         },
+        {
+            value: 'VT',
+            text: 'Vũng Tàu'
+        },
     ],
     typeRoom:[
         {
@@ -119,6 +123,11 @@ export default {
             value: 'HP',
             text: 'Hải Phòng',
             img: '/hp.png'
+        },
+        {
+            value: 'VT',
+            text: 'Vũng Tàu',
+            img: '/vt.png'
         },
     ]
 }
