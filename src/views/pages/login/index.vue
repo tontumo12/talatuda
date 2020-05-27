@@ -3,7 +3,7 @@
         <b-jumbotron bg-variant="info" text-variant="white" border-variant="dark">
             <b-container>
                 <b-row class="text-left">
-                    <h3>Đăng ký thành viên TalaTula - Tích điểm thưởng và nhận ưu đãi</h3>
+                    <h3>Đăng ký thành viên TalaTuda - Tích điểm thưởng và nhận ưu đãi</h3>
                     <p>Nhanh chóng, tiện lợi và an toàn. Đăng ký liền tay, rinh ngay quyền lợi.</p>
                 </b-row>
             </b-container>
