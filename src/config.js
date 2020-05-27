@@ -122,12 +122,12 @@ export default {
         {
             value: 'HP',
             text: 'Hải Phòng',
-            img: '/hp.png'
+            img: '/hp.jpg'
         },
         {
             value: 'VT',
             text: 'Vũng Tàu',
-            img: '/vt.png'
+            img: '/vt.jpg'
         },
     ]
 }
