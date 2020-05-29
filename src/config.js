@@ -129,5 +129,28 @@ export default {
             text: 'Vũng Tàu',
             img: '/vt.jpg'
         },
+    ],
+    repasType:[
+        {
+            value: 'M',
+            text: 'Món mặn'
+        },
+        {
+            value: 'C',
+            text: 'Món chay'
+        },
+        {
+            value: 'R',
+            text: 'Món rau'
+        },
+        {
+            value: 'L',
+            text: 'Lẩu'
+        },
+        {
+            value: 'P',
+            text: 'Hải sản'
+        }
+        
     ]
 }
