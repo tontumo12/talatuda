@@ -34,6 +34,13 @@ module.exports = function (app) {
     res.sendFile(`./public/images/${req.params.imageId}`, { root: __dirname });
   })
   // todoList Routes
+  app.route('/repas') //done
+    .get(repas.getRepas)
+  app.post('/repas', upload.single('file'), repas.createRepas)
+  app.put('/repas/:repasId', upload.single('file'), repas.updateRepas)
+  app.route('/repas/:repasId') //done
+    .get(repas.getDetailRepas)
+    .delete(repas.deleteRepas)
   app.route('/login')
     .post(user.login) //done
   app.route('/loginhost')
@@ -91,11 +98,4 @@ module.exports = function (app) {
   app.route('/host/:userId/booking/:bookingId')
     .put(booking.updateStateBookingRoom) //done
     .delete(booking.deleteBookingRoom) //done
-  app.route('/repas') //done
-    .get(repas.getRepas)
-  app.post('/repas', upload.single('file'), repas.createRepas)
-  app.put('/repas/:repasId', upload.single('file'), repas.updateRepas)
-  app.route('/repas/:repasId') //done
-    .get(repas.getDetailRepas)
-    .delete(repas.deleteRepas)
 };
