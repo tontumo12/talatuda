@@ -41,7 +41,15 @@ export default {
         {
             value: 'LC',
             text: 'Lào Cai'
-        }
+        },
+        {
+            value: 'HP',
+            text: 'Hải phòng'
+        },
+        {
+            value: 'VT',
+            text: 'Vũng Tàu'
+        },
     ],
     typeRoom:[
         {
@@ -110,7 +118,17 @@ export default {
             value: 'QN',
             text: 'Quảng Ninh',
             img: '/qn.png'
-        }
+        },
+        {
+            value: 'HP',
+            text: 'Hải Phòng',
+            img: '/hp.jpg'
+        },
+        {
+            value: 'VT',
+            text: 'Vũng Tàu',
+            img: '/vt.jpg'
+        },
     ],
     repasType:[
         {
@@ -133,5 +151,6 @@ export default {
             value: 'P',
             text: 'Hải sản'
         }
+        
     ]
 }

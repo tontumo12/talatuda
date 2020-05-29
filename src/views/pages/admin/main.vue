@@ -392,7 +392,7 @@
                 if (data === "" || data === null) {
                     return ""
                 } else {
-                    let a = config.city.filter(el => el.value == data)
+                    let a = config.location.filter(el => el.value == data)
                     return a[0].text
                 }
             },

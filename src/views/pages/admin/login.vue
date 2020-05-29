@@ -12,7 +12,7 @@
                 </b-row>
                 <b-form @submit="onSubmit" @reset="onReset">
                     <b-form-group id="input-group-1" label="Tài khoản" label-for="input-1">
-                        <b-form-input id="input-1" v-model="form.username" required placeholder="Nhập tìa khoản">
+                        <b-form-input id="input-1" v-model="form.username" required placeholder="Nhập tài khoản">
                         </b-form-input>
                     </b-form-group>
 

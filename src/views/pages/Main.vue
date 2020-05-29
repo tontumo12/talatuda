@@ -2,8 +2,8 @@
     <b-container>
         <b-row>
             <b-col class="text-left">
-                <h3>Chào mừng đến với TalaTula!</h3>
-                <p>Đặt chỗ ở, homestay, nhà nghỉ, trải nghiệm và nhiều hơn nữa trên TalaTula</p>
+                <h3>Chào mừng đến với TalaTuda!</h3>
+                <p>Đặt chỗ ở, homestay, nhà nghỉ, trải nghiệm và nhiều hơn nữa trên TalaTuda</p>
                 <p>
                     <b-link href="/login">Đăng nhập</b-link> hoặc <span>
                         <b-link href="/regiter">đăng ký</b-link>
@@ -38,7 +38,7 @@
         <b-row class="pt-5">
             <b-col class="text-left">
                 <h3>Ưu đãi độc quyền</h3>
-                <p>Chỉ có tại TalaTula, <b-link href="/hotel">Book ngay!</b-link></p>
+                <p>Chỉ có tại TalaTuda, <b-link href="/hotel">Book ngay!</b-link></p>
             </b-col>
         </b-row>
         <b-row>
@@ -54,7 +54,7 @@
         <b-row class="pt-5">
             <b-col class="text-left">
                 <h3>Điểm đến</h3>
-                <p>Chọn điểm đến và khám phá cùng TalaTula</p>
+                <p>Chọn điểm đến và khám phá cùng TalaTuda</p>
             </b-col>
         </b-row>
         <b-row>
