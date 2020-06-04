@@ -13,6 +13,7 @@ import adminMain from '../views/pages/admin/main.vue'
 import review from '../views/pages/admin/review.vue'
 import booking from '../views/pages/admin/booking.vue'
 import repas from '../views/pages/repas'
+import listRepas from '../views/pages/repas/listRepas.vue'
 Vue.use(VueRouter)
 
 
@@ -52,6 +53,11 @@ const router = new VueRouter({
           path: '/repas',
           name: 'repas',
           component: repas
+        },
+        {
+          path: 'list-repas',
+          name: 'listRepas',
+          component: listRepas
         }
       ]
     },

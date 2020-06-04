@@ -138,7 +138,7 @@
                             <td>{{item.name}}</td>
                             <td>{{returnTypeRoom(item.type)}}</td>
                             <td>{{item.prices}} VNĐ</td>
-                            <td>{{item.detail}}</td>
+                            <td>{{item.detail.toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0})}}</td>
                             <td>{{item.number}} phòng</td>
                             <td>
                                 <b-button variant="outline-danger" class="ml-2" @click="deleteRoom(item)">

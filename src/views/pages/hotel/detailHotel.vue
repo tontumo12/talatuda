@@ -35,7 +35,7 @@
                         <p class="mb-1">
                             {{r.detail}}
                         </p>
-                        <small>Giá:{{r.prices}} VNĐ</small>
+                        <small>Giá:{{r.prices.toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0})}} VNĐ</small>
                         <b-button variant="outline-info" class="ml-5" @click="bookingRoom(r.id)">Đặt phòng</b-button>
                     </b-list-group-item>
                 </b-list-group>

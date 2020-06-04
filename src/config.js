@@ -132,6 +132,10 @@ export default {
     ],
     repasType:[
         {
+            value: null,
+            text: 'Chọn loại món ăn'
+        },
+        {
             value: 'M',
             text: 'Món mặn'
         },
