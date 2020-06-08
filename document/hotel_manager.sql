@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 29, 2020 at 05:53 AM
--- Server version: 10.4.8-MariaDB
--- PHP Version: 7.1.33
+-- Generation Time: Jun 08, 2020 at 06:03 AM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -184,8 +183,49 @@ CREATE TABLE `repas` (
   `pices` int(11) NOT NULL,
   `detail` longtext COLLATE utf8_unicode_ci DEFAULT NULL,
   `energi` int(11) NOT NULL,
-  `img` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+  `img` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `choise` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `repas`
+--
+
+INSERT INTO `repas` (`id`, `name`, `type`, `pices`, `detail`, `energi`, `img`, `choise`) VALUES
+(1, 'Gà nướng mắc khén', 'M', 100000, 'Hương vị riêng đặc trưng của mắc khén sẽ khiến món gà nướng của bạn ngon không tưởng.\nNguyên liệu:\n- 1 con gà\n- Chẳm chéo\n- Hạt mắc khén\n- Muối hạt\n- Sả.\n=> không cay\n', 335, 'http://localhost:3000/images/1591204956903.jpg', 0),
+(2, 'Gỏi bắp cải chân gà rút xương', 'M', 150000, 'Gỏi bắp cải ăn kèm chân gà rút xương vị chua ngọt mát dễ ăn, dùng làm món khai vị rất phù hợp.\nNguyên liệu:\n- Chân gà: 500 gr\n- Bắp cải tím\n- Cà rốt\n- Ớt sừng trái to\n- Đậu phộng rang\n- Rau thơm\n- Hành phi\n- Chanh hoặc trái tắc.\n=> hơi cay\n', 234, 'http://localhost:3000/images/1591205442649.jpg', 0),
+(3, 'Khoai môn hấp tôm thịt', 'M', 80000, 'Nếu nhà bạn có trẻ nhỏ thì chỉ cần làm một đĩa khoai môn hấp tôm thịt đã đủ dinh dưỡng cho bé.\nNguyên liệu:\n- Khoai môn: 300 g\n- Thịt lợn: 100 g\n- Tôm: 100 g\n- Trứng gà: 2 quả\n- Mộc nhĩ.\n=> ko cay\n', 354, 'http://localhost:3000/images/1591205604526.jpg', 0),
+(4, 'Tôm rang trứng muối', 'M', 150000, 'Trứng muối béo béo, thơm thơm, rang cùng tôm hợp đến lạ kỳ, làm món mặn ăn cùng cơm rất đưa đẩy, nhất là vào những ngày mưa.\nNguyên liệu:\n- 300 g tôm tươi\n- 4 quả trứng vịt muối\n- 1 củ hành tây\n- Gia vị, đường, hạt tiêu.\n=> ko cay\n', 167, 'http://localhost:3000/images/1591205716268.jpg', 0),
+(5, 'Cánh gà chiên mắm me', 'M', 75000, 'Miếng cánh gà chua chua, mặn mặn, ngọt ngọt lúc nào cũng có sức quyến rũ đối với cả nhà.\nNguyên liệu:\n- 4 cái cánh gà\n- Một vắt nhỏ me\n- Vừng, ớt\n- Ớt chuông tùy thích\n- Mắm, dầu hào, đường.\n=> hơi cay\n', 167, 'http://localhost:3000/images/1591206124842.jpg', 0),
+(6, 'Nầm heo chiên mắm tỏi', 'M', 95000, 'Nầm sữa dai mềm thấm vị mắm tỏi mặn ngọt, tỏi chiên béo bùi lạ miệng, là món nhậu khoái khẩu cho ông xã vào ngày cuối tuần.\nNguyên liệu:\n- 200 gr nầm heo\n- 5-10 tép tỏi\n- Hành tây\n- Tỏi ớt băm\n=> cay\n', 489, 'http://localhost:3000/images/1591206247852.jpg', 0),
+(7, 'Cháo mọc nấm bào ngư', 'M', 295000, 'Chỉ cần 3 bước đơn giản, bạn đã có ngay chén cháo thơm lừng đầy dinh dưỡng với nấm bào ngư dai ngọt và mọc thơm ngon.\nNguyên liệu:\n- Giò sống\n- Nấm bào ngư xám\n- Hành lá\n- Hành phi\n- Gạo\n=> ko cay\n', 689, 'http://localhost:3000/images/1591206418555.jpg', 1),
+(8, 'Gỏi bao tử heo trộn ớt chuông', 'M', 125000, 'Món gỏi bao tử heo giòn sật, ăn vui miệng, kèm ớt chuông nhiều màu sắc, bổ sung vitamin cho cơ thể.\nNguyên liệu:\n- Bao tử heo: 1 cái\n- Ớt chuông\n- Hành tây\n- Rau thơm\n- Chanh, ớt, gừng\n- Đậu rang   \n=> cay\n', 189, 'http://localhost:3000/images/1591206495546.jpg', 0),
+(9, 'Nem rán nhân thịt gà vàng giòn', 'M', 65000, 'Thay vì làm nem rán với thịt lợn xay, bạn có thể thay đổi bằng thịt gà xay để đổi vị món ăn Tết phổ biến ở cả 2 miền.\nNem rán là một trong những món ăn truyền thống không thể thiếu trong dịp Tết. Hãy biến tấu một chút với nem rán nhân thịt gà. Từng miếng nem giòn thơm ăn kèm nước chấm chua ngọt sẽ làm mâm cơm Tết hấp dẫn và đậm đà hơn.\nNguyên liệu:\n- Nấm hương: 50 gr\n- Mộc nhĩ: 2 tai\n- Hành củ: 5 củ\n- Miến dong: 1 bó\n- Cà rốt: 1 củ\n- Hành lá: 3 cây\n- Thịt gà xay: 400 gr\n=> ko cay\n', 389, 'http://localhost:3000/images/1591206686037.png', 0),
+(10, 'Canh kim chi thịt bò cay', 'M', 165000, 'Canh kim chi chua cay, thơm ngọt vị thịt bò, ngầy ngậy của đậu phụ non sẽ là món ăn dễ làm và ngon miệng.\nNguyên liệu:\n- Kim chi\n- Thịt bò: 200 gr\n- Đậu phụ non: 1 hộp\n- Hành lá: 2 cây \n => cay\n', 489, 'http://localhost:3000/images/1591206809172.png', 0),
+(11, 'Thịt heo nạc xào cần tây', 'M', 60000, 'Nguyên liệu:\n- Thịt heo (50g): rửa sạch và thái nhuyễn\n- Rau cần tây (300g): cắt bỏ rễ, rửa sạch và cắt khúc\n- Trứng gà: 1 quả\n- Khoai mài khô (15g): rửa qua nước và để ráo\n- Vài lát gừng tươi thái nhuyễn\n- 10g bột năng\n- Hành tím: 1 củ, băm nhỏ\n- Gia vị: 1 muỗng cà phê muối, 1 muỗng cà phê bột ngọt và 2 muỗng cà phê dầu ăn.\nTính chất: ko cay, ko chua', 189, 'http://localhost:3000/images/1591360268255.jpg', 0),
+(12, 'Canh hẹ', 'R', 40000, 'NGuyên liệu:\n- Hẹ tươi (150g): rửa sạch và cắt khúc\n- Tôm khô (30g): ngâm nở và giã nát\n- Cà chua: 1quả, thái múi cau\n- Đậu phụ: 2 bìa, để ráo và cắt miếng vuông\n- Gia vị: hành tím băm, ít muối và hạt nêm\nTính chất: ko chua, ko cay.\n', 133, 'http://localhost:3000/images/1591363462408.jpg', 0),
+(13, 'Thịt vịt hầm hạt sen', 'M', 140000, 'Nguyên liệu:\n- Hạt sen (150g): tách bỏ tim sen\n- Thịt vịt (350g): khử mùi với rượu và gừng\n- Gia vị: 1 muỗng cà phê muối và 1 muỗng cà phê hạt nêm\nTính chất: ko cay, ko chua.', 350, 'http://localhost:3000/images/1591363557963.jpg', 0),
+(14, 'Canh tía tô, rau thơm', 'R', 30000, 'Nguyên liệu:\n- Gia vị: húng quế, húng lủi, kinh giới… Mỗi loại 10g\n- Tía tô (30g): nhặt lấy lá\n- 100g tôm nõn\nTinh chất: ko cay, ko chua.', 200, 'http://localhost:3000/images/1591363743020.jpg', 0),
+(15, 'Ốc bươu bung củ chuối', 'R', 50000, 'Nguyên liệu:\nỐc bươu, thịt lợn ba chỉ, đậu phụ rán, củ chuối hột non thái nhỏ, nghệ giã vắt nước, khế, mẻ, mắm tôm, gia vị…\nTính chất: ko chua, ko cay', 231, 'http://localhost:3000/images/1591364405688.jpg', 0),
+(16, 'Canh mướp đắng nhồi thịt (khổ qua)', 'R', 50000, 'Nguyên liệu:\nMướp đắng, thịt nạc vai xay nhuyễn, mộc nhĩ thái nhỏ, hành, mùi tàu rửa sạch, thái nhỏ.\nTính chât: ko cay, ko chua', 231, 'http://localhost:3000/images/1591366093612.jpg', 0),
+(17, 'Nấm xào cải xanh', 'R', 30000, 'Nguyên liệu:\n- Cải xanh (350g): làm sạch và thái khúc\n- Nấm hương tươi: 6 tai, cắt bỏ cuống, ngâm qua nước muối pha loãng\n- 50g bắp non\n- Hành tím: 1 củ, lột vỏ và băm nhỏ\nGia vị: 1/3 muỗng cà phê muối, 1/2 muỗng cà phê bột ngọt và ít dầu ăn\n=> ko chua, ko cay', 154, 'http://localhost:3000/images/1591366706433.jpg', 0),
+(18, 'Cháo cà rốt', 'C', 30000, 'Nguyên liệu: Cà rốt tươi, gạo ngon để nấu cháo.\n=> không chua, không cay.', 189, 'http://localhost:3000/images/1591366798306.jpg', 0),
+(19, 'Nhộng tằm xào lá chanh', 'M', 120000, 'Nguyên liệu:\n- 100g nhộng tằm: rửa sạch và xóc ráo nước.\n- Vài lá chanh tươi: rửa sạch và thái sợi\n- Gia vị: 1/2 muỗng cà phê muối, 1/2 muỗng cá phê nước mắm ngon, 1/2 muỗng bột ngọt và 2 muỗng cà phê dầu ăn.\n- không chua , không cay.\n', 311, 'http://localhost:3000/images/1591366926841.jpg', 0),
+(20, 'Thịt heo xào hành tây', 'M', 40000, 'Nguyên liệu:\n- 2 củ hành tây: lột vỏ và thái múi cau\n- 100g thịt nạc: thái mỏng\n- Đầu hành lá: rửa sạch và băm nhỏ\n- Gia vị: 1 muỗng cà phê tương, 1/2 muỗng cà phê muối, 1/2 muỗng cà phê bột ngọt và 2 muỗng canh dầu\n- không chua, không cay.', 188, 'http://localhost:3000/images/1591367061233.jpg', 0),
+(21, 'Nấm rơm xào thịt nạc', 'M', 60000, 'Nguyên liệu:\n- 300g nấm rơm tươi: rửa sạch, ngâm qua nước muối pha loãng và để ráo\n- 50g thịt nạc heo: thái nhỏ\n- 1 củ hành tím băm nhỏ\n- Gia vị: 1/2 muỗng cà phê muối, ½ muỗng cà phê bột ngọt và 2 muỗng cà phê dầu mè.\n- Không chua, không cay.\n', 221, 'http://localhost:3000/images/1591367176653.jpg', 0),
+(22, 'Cháo bí đao', 'C', 30000, 'Nguyên liệu:\n- 1 trái bí đao (khoảng 100g): gọt vỏ, bổ làm bốn và cắt miếng nhỏ\n- 1/2 lon gạo tẻ: vo sạch và để ráo\n- 1 muỗng cà phê muối\n- Tính chất: mặn nhẹ.', 183, 'http://localhost:3000/images/1591367270295.jpg', 0),
+(23, 'Súp bào ngư, củ cải, cà rốt', 'M', 150000, 'Nguyên liệu:\n- 20g bào ngư tươi: rửa với ít rượu và gừng để khử tanh, sau đó thái mỏng\n- 50g tôm nõn\n- 1 củ cà rốt và 1 củ cải: gọt vỏ và thái hạt lựu\nVài lát gừng: thái sợi nhuyễn\n- Gia vị: hành tím băm1 muỗng cà phê muối, 1/2 muỗng cà phê bột ngọt\n- Tính chất: không chua, không cay.', 283, 'http://localhost:3000/images/1591367483987.jpg', 0),
+(24, 'Canh cá trạch nấu lá sen', 'M', 100000, 'Nguyên liệu:\n- 250g cá trạch: làm sạch và cắt khúc\n- 150g lá sen tươi (chọn loại bánh tẻ)\n- Gia vị: vài lát ớt tươi, 1 muỗng cà phê muối, 1 muỗng cà phê hạt nêm.\n- Tính chất: không chua, không cay.', 783, 'http://localhost:3000/images/1591367580577.jpg', 0),
+(25, 'Cá chép hầm đậu đỏ', 'M', 120000, 'NGuyên liệu:\n- 1 con cá chép: làm sạch và mổ một đường ở bụng cá\n- 100g đậu đỏ: ngâm nước trước lúc nấu khoảng 4 tiếng\n- 5g trần bì\n- 5g thảo quả\n- 3 trái ớt đỏ\n- Vài lát gừng tươi\n- Ít đầu hành lá\n- Gia vị: 1 muỗng cà phê muối và 1 muỗng cà phê hạt nêm\n- Không chua, không cay.\n', 340, 'http://localhost:3000/images/1591369110825.jpg', 0),
+(26, 'cháo lươn khoai môn', 'M', 120000, 'NGuyên liệu:\n– 100 gram gạo tẻ\n– 800 gram lươn\n– 250 gram khoai môn\n– Ngò gai, hành lá, ngò om (mỗi loại 50 gram)\n– Gia vị: Tiêu, đường trắng, nước mắm, bột ngọt, dầu ăn, hành tím băm nhỏ\n- Tính chất: không chua, không cay.\n', 543, 'http://localhost:3000/images/1591370316656.jpg', 0),
+(27, 'canh khoai tây thịt bò', 'M', 140000, 'NGuyên liệu;\n- 200g thịt bò\n- 2 củ khoai tây\n- 2 củ cà rốt\n- 1 củ hành tím\n- Vài cây hành lá\n- Một số loại gia vị cần thiết: Hạt nêm, nước mắm, bột ngọt, đường…\n- Tính chất: không chua, không cay.', 343, 'http://localhost:3000/images/1591370469336.jpg', 0),
+(28, 'trứng chiên cuộn tôm', 'M', 40000, 'Nguyên liệu:\n- 2 quả trứng\n- Tôm 12 con\n- Nửa củ cà rốt\n- Hạt nêm, tiêu xay\n- Trứng cuộn tôm hấp\n', 147, 'http://localhost:3000/images/1591370599940.jpg', 0),
+(29, 'gà tiềm thuốc bắc', 'M', 200000, 'Nguyên liệu:\n- 1 con gà ác khoảng 1kg\n- Hạt bạch quả: 15g\n- Táo đỏ: 10g\n- Sinh địa: 10g\n- Y dĩ: 5g\n- Nhân sâm: 5g\n- Hoài sơn: 10g\n- Kỳ tử: 5g\n- Dừa xiêm: 1 quả\n- Cốm nếp xanh: 15g\n- Gia vị: hạt nêm, muối, tiêu, mật ong chúa…\n', 749, 'http://localhost:3000/images/1591370744480.jpg', 0),
+(30, 'gà nấu hạt sen', 'M', 100000, 'Nguyên liệu:\n- 100gram hạt sen tươi\n- 2 củ Cà rốt\n- 1/2 lạng nấm hương khô\n- 500gram đùi gà\n- Hành, ngò,\n- Gia vị nêm\n', 749, 'http://localhost:3000/images/1591370875655.jpg', 0),
+(31, 'thịt hấp khoai môn', 'M', 80000, 'Nguyên liệu:\n- 300g thịt ba chỉ\n- 250g khoai môn\n- 15ml xì dầu, 10ml dầu mè\n- 2 cánh hoa hồi, hành lá, gừng\n- Tính chất: không chua, không cay.', 578, 'http://localhost:3000/images/1591370998575.jpg', 0),
+(32, 'Giò heo hầm rau củ', 'M', 80000, 'Nguyên liệu:\n- 500g chân giò cả móng\n- 30g cà rốt\n- 30g củ lạc\n- 30g đu đủ xanh\n- 15g hạt sen\n- 20g xu hào\n- 1 thìa café hạt nêm, 1 thìa café tiêu\n- 50g hành lá\n- 30g mùi tây\n- Tính chất: không chua, không cay.\n', 867, 'http://localhost:3000/images/1591373335848.jpg', 0),
+(33, 'cháo đậu xanh', 'C', 30000, 'NGuyên liệu:\n- Gạo nếp: 100 gr.\n- Gạo tẻ: 30 gr.\n- Đậu xanh: 50 gr.\n- Xương ống: 200 gr.\n- Thịt heo xay: 100 gr.\n- Hành tím: 1 củ\n- Rau ăn kèm: Hành lá, tía tô, giá đỗ,...\n- Gia vị: Hạt nêm, nước mắm, tiêu, dầu ăn,...\n', 167, 'http://localhost:3000/images/1591373483427.jpg', 0),
+(34, 'sữa bí đỏ', 'C', 20000, 'Nguyên liệu:\n- Bí đỏ: 500gr\n- Sữa đặc: ½ lon\n- Sữa tươi không đường: 1 lít\n- Nước cốt dừa: 500ml\n- Tính chất: ngọt', 167, 'http://localhost:3000/images/1591373732803.jpg', 0);
 
 -- --------------------------------------------------------
 
@@ -297,7 +337,117 @@ INSERT INTO `room_hotel` (`id`, `name`, `type`, `prices`, `detail`, `id_hotel`, 
 (106, 'Phòng Suite Royal', 1, '42331000', 'Phòng Suite Royal, 2 phòng ngủ, Quang cảnh biển, bao bữa sáng. Ở tối đa 5 người, view nhìn ra biển, có bồn tắm cỡ lớn.', 26, 10),
 (107, 'Suite Junior', 2, '3331000', 'Kích thước phòng 55 m²\nSuite có giường đôi, 2 phòng tắm, phòng khách cùng sảnh khách riêng biệt, ghế sofa và ban công. View nhìn ra hồ bơi và thành phố.', 27, 10),
 (108, 'Suite Gia đình sang trọng', 1, '5331000', ' Chỗ đậu xe miễn phí,\nKích thước phòng 75 m²,\nTrong phòng tắm riêng của bạn:\n Đồ vệ sinh cá nhân miễn phí,\n Áo choàng tắm,\n Phòng tắm phụ,\n Nhà vệ sinh,\n Bồn tắm hoặc Vòi sen,\n Khăn tắm,\n Dép,\n Máy sấy tóc,\n Toilet phụ,\n Giấy vệ sinh. Có view nhìn ra hồ bơi và thành phố và bao ăn sáng.', 27, 10),
-(109, 'Phòng Superior 2 Giường Đơn', 3, '1531000', 'Kích thước phòng 35 m²\nPhòng giường đôi/2 giường đơn này có ban công, minibar và khu vực tiếp khách.\nTrong phòng tắm riêng của bạn:\n Đồ vệ sinh cá nhân miễn phí,\n Áo choàng tắm,\n Nhà vệ sinh,\n Bồn tắm hoặc Vòi sen,\n Khăn tắm,\n Dép,\n Máy sấy tóc,\n Giấy vệ sinh,', 27, 10);
+(109, 'Phòng Superior 2 Giường Đơn', 3, '1531000', 'Kích thước phòng 35 m²\nPhòng giường đôi/2 giường đơn này có ban công, minibar và khu vực tiếp khách.\nTrong phòng tắm riêng của bạn:\n Đồ vệ sinh cá nhân miễn phí,\n Áo choàng tắm,\n Nhà vệ sinh,\n Bồn tắm hoặc Vòi sen,\n Khăn tắm,\n Dép,\n Máy sấy tóc,\n Giấy vệ sinh,', 27, 10),
+(110, 'test', 2, '12', 'ddd', 11, 1),
+(112, 'Phòng Deluxe 1 Giường Lớn Hoặc 2 Giường Đơn', 3, '1546000', '- Diện tích: 30 m2 - Hướng phố - Có 1 Giường đôi lớn / 2 Giường đơn\n- Bao gồm bữa sáng.', 28, 10),
+(115, 'Phòng Suite 1 Giường Lớn', 1, '4546000', '- Diện tích: 65 m2 - Hướng phố - Có 1 Giường đôi lớn  - Bao gồm bữa sáng.', 28, 10),
+(116, 'Phòng Exectuive 1 Giường Lớn Hoặc 2 Giường Đơn', 2, '2546000', '- Diện tích: 30 m2 - Hướng phố - Có 1 Giường đôi lớn / 2 Giường đơn - Bao gồm bữa sáng.', 28, 10),
+(118, 'Superior', 3, '1321000', '- Diện tích: 30 m2\n - Hướng phố\n- Có  1 Giường đôi\n- miễn phí bữa sáng.', 29, 10),
+(119, 'Deluxe', 2, '2321000', '- Diện tích: 35 m2 - Hướng phố - Có 1 Giường king - miễn phí bữa sáng.', 29, 10),
+(120, 'Executive', 1, '2921000', '- Diện tích: 35 m2 - Hướng phố - Có 1 Giường king - miễn phí bữa sáng.', 29, 10),
+(121, 'Phòng Deluxe ', 3, '921000', '- Diện tích phòng: 25m2\n- Loại giường: 01 giường lớn \n- Điều hòa nhiệt độ 2 chiều\n- LCD truyền hình vệ tinh TV, NHK\n- Cửa sổ chống ồn\nKét an toàn\nÐiện thoại quốc tế\nKết nối Internet wifi\nBàn pha trà & cà phê\nBồn tắm & vòi hoa sen', 30, 10),
+(122, 'Phòng Executive', 3, '1021000', '- Diện tích phòng: 30 m2 \n- Loại giường : 1 giường đôi hoặc 2 giường đơn\n- Điều hòa nhiệt độ hai chiều\n- LCD truyền hình vệ tinh TV, NHK\n- Cửa sổ chống ồn\n- Két an toàn\n- Ðiện thoại quốc tế\n- Kết nối Internet wifi\n- Bàn pha trà & cà phê\n- Bồn tắm & vòi hoa sen', 30, 10),
+(123, 'Phòng Level Suite', 2, '2421000', '- Diện tích phòng : 40 m2\n- Loại Giường : 1 giường lớn\n- Điều hòa nhiệt độ hai chiều\n- LCD truyền hình vệ tinh TV, NHK\n- Cửa sổ chống ồn\n- Két an toàn\n- Ðiện thoại quốc tế\n- Kết nối Internet wifi\n- Bàn pha trà & cà phê\n- Bồn tắm & vòi hoa sen', 30, 10),
+(124, 'CĂN HỘ CAO CẤP', 1, '4421000', '- Diện tích phòng: 50 m2 \n- Loại giường : 1 giường lớn\n- Điều hòa nhiệt độ hai chiều\n- LCD truyền hình vệ tinh TV, NHK\n- Cửa sổ chống ồn\n- Két an toàn\n- Ðiện thoại quốc tế\n- Kết nối Internet wifi\n- Bàn pha trà & cà phê\nBồn tắm & vòi hoa sen', 30, 10),
+(125, 'PHÒNG CƠ BẢN GIƯỜNG ĐÔI - (CITY VIEW)', 3, '900000', '- Hướng: (City View)\n- Phòng 25 m²\n- Loại Giường: 1 Giường Đôi', 31, 10),
+(126, 'PHÒNG THƯƠNG GIA SUPERIOR GIƯỜNG ĐÔI - (CITY VIEW)', 2, '1900000', '- Hướng: (City View) - Phòng 30 m² - Loại Giường: 1 Giường Đôi\n- Miễn phí bữa sáng', 31, 10),
+(128, ' JUNIOR SUITE GIƯỜNG ĐÔI - (CITY VIEW)', 3, '1500000', '- Hướng: (City View) - Phòng 30 m² - Loại Giường: 1 Giường Đôi', 31, 10),
+(129, 'DELUXE GIA ĐÌNH - (CITY VIEW)', 2, '2500000', '- Hướng: (City View) - Phòng 30 m² - Loại Giường: 2 Giường Đôi - Miễn phí bữa sáng', 31, 10),
+(131, 'PHÒNG EXECUTIVE', 1, '4500000', '- Hướng – (City View)\n- Phòng 80 m²\n- Loại Giường - 1 Giường King\n- Bao gồm bữa sáng.', 31, 10),
+(132, 'Premier Room', 3, '1500000', '- Hướng phố\n- Có 1 Giường đôi rất lớn / 2 Giường đơn\n- Ở tối đa 2 người.', 32, 10),
+(133, 'Premier Suite', 3, '2000000', '- Hướng phố\n- Có 1 Giường đôi rất lớn\n - Ở tối đa 2 người.', 32, 10),
+(135, 'Deluxe Room', 2, '2690000', '- Hướng phố\n- Có 1 Giường đôi rất lớn / 2 Giường đơn', 32, 10),
+(136, 'Residence Club Premier Room', 1, '3690000', ' Hướng phố - Có 1 Giường đôi rất lớn / 2 Giường đơn - Ở tối đa 2 người.', 32, 10),
+(138, 'Phòng Colonial Deluxe', 3, '1700000', '- Giường Đôi/2 Giường Đơn (Colonial Deluxe Double or Twin Room) - Bao bữa sáng cho 2 người. - Wifi miễn phí.\n- Diện tích: 33 m²', 33, 16),
+(139, 'Deluxe', 3, '1819000', '- Diện tích phòng: 35 m²\n- Ban công/sân hiên\n- Không hút thuốc\n- Phòng tắm vòi sen & bồn tắm\n- Phòng tắm chung\n- Wifi miễn phí\n- Có 2 giường đơn/\n1 giường đôi', 33, 12),
+(141, 'DOUBLE COLONIAL CITY VIEW DELUXE', 2, '2825000', '- Ban công/sân hiên\n- Wifi miễn phí\n- bao bữa sáng\n- diện tích: 40m2', 33, 15),
+(142, 'Phòng Colonial Deluxe Đôi', 3, '1825000', '- 2 Giường đơn nhìn ra Thành phố - Diện tích phòng: 35 m² - Ban công/sân hiên - Bồn tắm - Wifi miễn phí', 33, 15),
+(143, 'Colonial Suite', 2, '2500000', '- Diện tích phòng: 85 m²\n- Hướng phòng: Thành phố\n- Không hút thuốc\n- Phòng tắm vòi sen & bồn tắm\n- Phòng tắm chung\n- Wifi miễn phí\n- Miễn phí  bữa sáng.', 33, 15),
+(144, 'Suite Đôi (Suite Double)', 1, '3500000', '- Diện tích phòng: 85 m² - Hướng phòng: Thành phố - giường đôi cỡ lớn - Không hút thuốc - Phòng tắm vòi sen & bồn tắm - Phòng tắm chung - Wifi miễn phí - Miễn phí bữa sáng.', 33, 15),
+(146, 'Majestic Suite Hướng sông (Majestic Suite River View)', 1, '3800000', '- Wifi miễn phí - 1 giường đôi - Diện tích phòng: 100 m² - Phòng rất rộng - Hướng phòng: Sông - Ban công/sân hiên - Không hút thuốc - Bồn tắm/vòi sen riêng - Bao bữa sáng.', 33, 15),
+(147, 'Phòng Premium', 3, '3800000', '-Diện tích: 38 m2\n- Hướng nội bộ\n- 1 Giường đôi rất lớn\n- Có 1 giường lớn, bao bữa sáng.', 34, 15),
+(148, 'Phòng Suite', 3, '4050000', '-Diện tích: 38 m2 - Hướng nội bộ - 1 Giường đôi rất - bao bữa sáng.', 34, 15),
+(149, 'Phòng Governor Suite', 2, '4550000', '- Diện tích: 58 m2\n\n- Hướng phố\n\n- 1 Giường đôi rất lớn\n-Bao bữa sáng, Wifi miễn phí.', 34, 15),
+(150, 'Phòng Executive Premium 1', 1, '5550000', ' Diện tích: 58 m2 - Hướng phố - 1 Giường đôi rất lớn/2 giường đơn -Bao bữa sáng, Wifi miễn phí.', 34, 15),
+(151, 'EXECUTIVE SUITE 1 KING BED', 3, '1550000', 'Nằm trên tầng Executive, diện tích 70m2 có phòng khách riêng biệt , phòng ngủ thoải mái với khung cảnh đẹp của thành phố,  Tivi LED IPTV 46inch và trạm BOSE SoundDock II docking. Du khách tận hưởng tất cả những lợi ích của một phòng Executive .', 35, 15),
+(152, 'EXECUTIVE SUITE WITH 2 SINGLE BEDS', 3, '2550000', 'Thưởng thức trải nghiệm độc đáo trong căn phòng ấm cúng và riêng tư này trên 25-29 tầng. Du khách thưởng thức bữa sáng, cà phê, nước giải khát, cocktail buổi tối, các dịch vụ kinh doanh và sử dụng phòng họp tại phòng executive trên tầng 30.', 35, 15),
+(153, 'SUPERIOR 1 KING BED', 2, '3550000', 'Cá phòng 30m2 theo kiểu hiện đại đi kèm với giường chữ ký Pullman thoải mái. Tiện nghi gồm: 1 Tivi LED 40inch IPTV có thể tích hợp với các thiết bị của du khách, vòi hoa sen và tiện nghi trà, cà phê, dịch vụ phòng 24 giờ.', 35, 15),
+(155, 'PRESIDENTIAL SUITE', 2, '4950000', 'Tọa lạc trên tầng 29 , phòng lớn nhất của khách sạn có diện tích sàn 160m2, trong đó bao gồm một phòng khách, phòng ngủ hiện đại, khu vực ăn uống, phòng bổ sung, cửa sổ cao từ sàn đến trần và tầm nhìn toàn cảnh của thành phố.', 35, 15),
+(156, 'DELUXE 2 SINGLE BEDS', 1, '5700000', 'Tận hưởng một cái nhìn tuyệt vời từ các tầng cao hơn với điều này góc phòng rộng rãi, trong đó có 2 giường đơn, bồn tắm có vòi hoa sen, máy pha cà phê, IPTV và WiFi miễn phí. Du khách có thể truy cập vào các trung tâm thể dục, hồ bơi, bể sục và tắm hơi.', 35, 17),
+(157, 'PULLMAN SIGNATURE SUITE', 1, '8700000', 'Ngoài quyền được hưởng lợi ích Executive Suite, khách đến Pullman Signature Suite có thể ngâm mình trong bồn tắm xoáy nước. Phòng ngủ hoàn hảo cho tuần trăng mật .', 35, 10),
+(159, 'Phòng Opera ', 3, '1900000', '- Hướng phố\n\n- Có 1 Giường đôi rất lớn / 2 Giường đơn\n- Ở tối đa 2 người.', 36, 10),
+(160, 'Phòng Deluxe ', 2, '7900000', '- Có 1 giường đôi/king cực lớn \n- Các phòng rộng rãi này có cửa sổ kính suốt từ trần đến sàn với tầm nhìn ra cảnh quan thành phố, két an toàn cá nhân, TV màn hình phẳng, giường Posturepedic và danh sách các loại gối cho khách chọn. Máy sấy tóc và đồ vệ sinh cá nhân miễn phí có sẵn trong phòng tắm riêng.\n\n- Phòng nhìn ra Sông được cung cấp tùy vào tình trạng sẵn có.', 36, 10),
+(161, 'Phòng Deluxe', 3, '5900000', '- Hướng phố -Có 1 Giường đôi rất lớn / 2 Giường đơn', 36, 10),
+(162, 'Phòng Opera Có Giường Cỡ King', 2, '8900000', '- Có 1 giường đôi cỡ lớn.\n- Với cửa sổ dài đầy đủ với Opera House Saigon, các phòng rộng rãi được trang bị bàn trang điểm, TV màn hình phẳng 49 inch, giường Posturepees và thực đơn gối. Phòng tắm riêng đi kèm máy sấy tóc và tiện nghi tắm Appelles miễn phí.\n\n- Lợi ích của Signature Lounge: - Bữa sáng tự chọn và đồ uống có cồn trước bữa tối - Canapé buổi tối - Đồ uống không cồn cả ngày - Rượu sủi tăm có sẵn cả ngày - Phòng hội thảo: một giờ mỗi ngày với tối đa 10 khách - Nhận phòng & trả phòng riêng tại Sảnh chờ.', 36, 10),
+(163, 'Phòng Deluxe ', 1, '10900000', 'Có Giường Cỡ King Với Các Quyền Lợi Tại Signature Lounge và veiw phố ', 36, 10),
+(164, 'Phòng Signature', 1, '12900000', '- Với tầm nhìn ra thành phố, các phòng sang trọng được trang bị máy pha cà phê Nespresso, TV màn hình phẳng 49 inch, giường Posturepees và menu gối. Phòng tắm riêng đi kèm máy sấy tóc và tiện nghi tắm Appelles miễn phí.\n- Có 1 giường đôi cực lớn\n\n- Lợi ích của Signature Lounge: - Bữa sáng tự chọn và đồ uống có cồn trước bữa tối - Canapé buổi tối - Đồ uống không cồn cả ngày - Rượu sủi tăm có sẵn cả ngày - Phòng hội thảo: một giờ mỗi ngày với tối đa 10 khách - Nhận phòng & trả phòng riêng tại Sảnh chờ.', 36, 10),
+(165, 'Phòng Signature Studio', 1, '14900000', '- Với các cửa sổ dài đầy đủ với tầm nhìn ra thành phố, các phòng rất rộng rãi được trang bị máy pha cà phê Nespresso, bàn trang điểm và TV màn hình phẳng 49 inch. Phòng tắm có máy sấy tóc và tiện nghi tắm Appelles miễn phí.\n- 1 giường đôi lớn.\n- Lợi ích của Signature Lounge: - Bữa sáng tự chọn và đồ uống có cồn trước bữa tối - Canapé buổi tối - Đồ uống không cồn cả ngày - Rượu sủi tăm có sẵn cả ngày - Phòng hội thảo: một giờ mỗi ngày với tối đa 10 khách - Nhận phòng & trả phòng riêng tại Sảnh chờ.', 36, 10),
+(166, 'Suite Executive', 1, '15500000', '-Suite này có phòng khách riêng và menu gối.\n- Có 1 giường đôi lớn.\n\n-Lợi ích của Signature Lounge: - Bữa sáng tự chọn và đồ uống có cồn trước bữa tối - Canapé buổi tối - Đồ uống không cồn cả ngày - Rượu sủi tăm có sẵn cả ngày - Phòng hội thảo: một giờ mỗi ngày với tối đa 10 khách - Nhận phòng & trả phòng riêng tại Sảnh chờ', 36, 10),
+(167, 'Deluxe', 3, '2050000', '-Phòng có diện tích khoảng 30m2, hướng thành phố, sàn gỗ\n\n- Hướng: thành phố\n-Phòng dành cho 2 người. Phòng có 1 giường đôi\n- Có thể kê thêm tối đa: 0 giường phụ', 37, 10),
+(168, 'Premier Deluxe', 2, '3150000', '- Diện tích khoảng 38 m2, hướng thành phố, sàn trải thảm\n- Hướng: thành phố\n- Phòng dành cho 2 người\n- Phòng có 1 giường đôi\n- Bữa sáng miễn phí.', 37, 10),
+(169, 'Club (Executive )', 1, '4150000', '- Phòng có diện tích 32 m2 nhìn ra thành phố, được trang bị đầy đủ,tiện nghi hiện đại, sàn trải thảm.\n- Hướng: thành phố\n- Phòng dành cho 2 người\n- Phòng có 1 giường đôi\n- Miễn phí bữa sáng.', 37, 10),
+(170, 'L\'amour Double Room', 3, '1150000', '- Wifi miễn phí\n- 1 giường đôi\n- Diện tích phòng: 50 m²\n- Phòng rất rộng\n- Hướng phòng: Thung lũng\n- Ban công/sân hiên\n- Không hút thuốc\n- Bồn tắm/vòi sen riêng\n- Miễn phí bữa sáng.', 38, 10),
+(171, 'Deluxe Triple', 3, '1360000', '- Wifi miễn phí\n- Có 1 giường đôi hoặc 1 giường đơn\n- Diện tích phòng: 60 m²\n- Phòng rất rộng\n- Ban công/sân hiên\n- Không hút thuốc\n- Bồn tắm/vòi sen riêng\n- Miến phí bứa sáng cho 3 người.', 38, 10),
+(172, 'Executive Suite', 2, '3360000', '- Wifi miễn phí\n- Diện tích phòng: 80 m²\n- Phòng rất rộng\n- Hướng phòng: Thung lũng\n- Ban công/sân hiên\n- Không hút thuốc\n- Bồn tắm/vòi sen riêng', 38, 10),
+(173, 'Villa Room', 3, '1582000', '- Diện tích 27 m2\n\n- Hướng vườn\n\n- Có  1 Giường đôi.\n- Bao bữa sáng.', 39, 15),
+(174, 'Villa Suite', 3, '2582000', '- Diện tích 50 m2\n\n- Hướng 1 phần ra vườn\n\n- Có 1 Giường đôi\n- Bao bữa sáng.', 39, 15),
+(175, 'Villa Studio', 2, '4082000', '- Diện tích 40 m2 - Hướng 1 phần ra vườn - Có 1 Giường đôi - Bao bữa sáng.', 39, 15),
+(176, 'Bellevue Suite', 1, '5042000', '	- Diện tích 67 m2 - Hướng vườn - Có 1 Giường đôi. - Bao bữa sáng.', 39, 15),
+(177, 'Superior room', 3, '1542000', 'diện tích 30m2 tiêu chuẩn 2 người lớn', 40, 7),
+(178, 'Royal superior room ', 2, '3542000', ' diện tích 40,5m2 tiêu chuẩn 2 người', 40, 7),
+(179, 'Luxury Exclusive', 2, '4542000', 'diện tích 44m2', 40, 7),
+(180, 'Luxury Balcony ', 3, '2442000', 'diện tích 30,5m2 tiêu chuẩn 2 người', 40, 7),
+(182, 'Suite', 3, '5442000', 'diện tích 55m2 và khách sạn bao gồm 4 phòng hạng suite', 40, 4),
+(183, 'President suite', 1, '15442000', 'phong cách cổ điển và một phòng tắm tuyệt đẹp được lát bằng gạch thủ công màu xanh dương góp phần làm nổi bật “Phong cách thuộc địa Pháp, trường phái Époque”', 40, 10),
+(184, 'Executive suite', 1, '14442000', 'diện tích 84m2 là căn phòng sang trọng nhất trong khách sạn với phong cách cổ điển Pháp.\n', 40, 10),
+(185, 'Deluxe Double/ Twin Garden View', 3, '2442000', 'Phòng loại này có diện tích 40m2 với view hướng vườn, có thể ở tối đa 3 người 2 người lớn và 1 trẻ nhỏ dưới 6 tuổi', 41, 10),
+(186, 'Luxury Double/ Twin Garden View', 2, '4442000', 'Phòng có view vườn với diện tích 46m2 với 1 giường lớn hoặc 2 giường đơn dành cho 2 người', 41, 10),
+(187, 'Luxury Double/ Twin Lake View', 2, '5442000', 'Phòng loại này cũng có diện tích 46m2 tuy nhiên view đẹp hơn đó là nhìn ra Hồ Tuyền Lâm', 41, 10),
+(188, 'Junior Suite Double Garden View', 1, '9442000', 'Phòng có diện tích 70m2 với view nhìn ra vườn thông và có ban công', 41, 10),
+(189, 'Deluxe King', 3, '2616000', '- Diện tích: 40 m2\n\n- Hướng vườn\n\n- Có1 Giường đôi lớn\n- Bao bữa sáng.', 42, 10),
+(190, 'Deluxe Twin', 3, '2696000', '- Diện tích: 40 m2 - Hướng vườn - Có 1 Giường đôi lớn - Bao bữa sáng.', 42, 10),
+(191, 'Deluxe Triple', 2, '4696000', '- Diện tích: 45 m2\n\n- Hướng phố\n\n- Có 1 Giường đơn, 1 Giường đôi lớn\n-  Bao bữa sáng.', 42, 10),
+(192, 'Suite Sea View', 2, '5067000', '- Diện tích: 65 m2\n\n- Hướng biển\n\n- Có 1 Giường đôi lớn\n- Bao bữa sáng.', 42, 10),
+(193, 'Private Sales', 1, '7067000', '- Diện tích: 100m2 - Hướng biển - Có 1 Giường đôi lớn - Bao bữa sáng.', 42, 10),
+(194, 'Bedrooms Suite Sea View', 1, '7767000', '- Diện tích: 110 m2\n\n- Hướng biển\n\n- Có 2 Giường đơn, 1 Giường đôi lớn / 2 Giường đôi lớn\n - Bao bữa sáng.', 42, 10),
+(195, 'Phòng Superior', 3, '2341000', '- Diện tích: 40 m2\n\n- Hướng phố\n\n- Có 1 Giường đôi rất lớn / 2 Giường đơn.\n- Miễn phí bữa sáng.', 43, 10),
+(196, 'Phòng Executive', 2, '3341000', '- Diện tích: 40 m2 - Hướng phố hoặc hướng biển- Có 1 Giường đôi rất lớn / 2 Giường đơn. - Miễn phí bữa sáng.', 43, 10),
+(198, 'Phòng Suite', 1, '5634000', '- Diện tích: 80 m2 - Hướng biển - Có 1 Giường đôi rất lớn _ miễn phí bữa sáng.', 43, 10),
+(199, 'Garden View Room', 3, '1563400', '- Diện tích: 42 m2\n\n- Hướng vườn\n\n- Có 1 Giường đôi / 2 Giường đơn\n- Bao gồm bữa sáng.', 44, 10),
+(200, 'Beach Front Bungalow', 3, '2563400', '- Diện tích: 54 m2 - Hướng vườn - Có 1 Giường đôi / 2 Giường đơn - Bao gồm bữa sáng.', 44, 10),
+(201, 'Garden View Suite', 2, '4467000', '- Diện tích:86 m2\n\n- Hướng vườn\n\n Có 1 Giường đôi và bao gồm bữa sáng.', 44, 10),
+(202, 'Family Suite (2 bedrooms)', 2, '5147000', '- Diện tích: 86 m2 - Hướng vườn - Có 2 Giường đôi và bao gồm bữa sáng.', 44, 10),
+(203, 'Bedroom Pool Villa', 1, '7689000', '- Diện tích: 286 m2 - Hướng vườn - Có 1 Giường đôi và bao gồm bữa sáng.	', 44, 10),
+(204, 'Two (02) Bedroom Pool Villa', 1, '11567000', '- Diện tích: 300 m2 - Hướng vườn - Có 2 Giường đôi và bao gồm bữa sáng.', 44, 10),
+(208, 'Beachfront Pool Villa', 2, '15567000', '- Diện tích: 350.0 m2 - Ở tối đa 6 khách - Có: Hồ bơi riêng, Ban công / sân hiên, Nhà bếp,Tủ lạnh, Máy pha cà phê / trà, Máy lạnh', 45, 10),
+(209, 'Riverfront Pool Villa', 3, '13567000', '- Diện tích: 430.0 m2 - Ở tối đa 6 khách - Có Hồ bơi riêng, Nhà bếp, Máy lạnh, Nước nóng - Miễn phí bứa sáng.', 45, 10),
+(210, 'Premium Riverfront Pool Residence', 1, '18674000', '- Diện tích: 790.0 m2\n- Có hồ bơi, bếp và miễn phí bữa sáng', 45, 10),
+(211, 'Biệt Thự Deluxe ', 3, '5600000', '\n- Diện tích khoảng: 100m2 gồm 01 phòng khách, 01 phòng ngủ\n- Loại giường: 01 phòng ngủ 01 giường đôi 2m hoặc 01 phòng ngủ 02 giường đơn 1m2\n- Hướng: vườn\nBiệt thự có thể kê thêm tối đa 01 giường \n-Phòng dành cho 2 người\n- Có thể kê thêm tối đa: 1 giường phụ', 46, 8),
+(213, 'Biệt Thự Premium', 2, '8350000', '- Diện tích khoảng: 201m2 gồm 01 phòng khách, 02 phòng ngủ - Loại giường: 01 phòng ngủ 01 giường đôi 2m và 01 phòng ngủ 02 giường đơn 1m2 - Hướng: biển - Biệt thự có thể kê thêm tối đa 01 giường phụ - Phòng dành cho 4 người - Bao bữa sáng.', 46, 8),
+(214, 'Biệt Thự Suite', 1, '14350000', '-Diện tích khoảng: 320m2 gồm 01 phòng khách, 01 hồ bơi riêng, 03 phòng ngủ trong đó có 02 phòng ngủ có phòng tắm riêng và 01 phòng ngủ sử dụng phòng tắm ngoài\n- Loại giường: 03 phòng ngủ gồm 02 phòng ngủ là giường đôi 2m và 01 phòng ngủ là 02 giường đơn 1m2\n- Hướng: vườn và biển\n- Biệt thự có thể kê thêm tối đa 01 giường phụ\n- Phòng dành cho 6 người', 46, 8),
+(215, 'Deluxe King', 3, '1678000', '- Diện tích: 22 m2\n\n- Hướng vườn\n\n- Có 1 Giường đôi\n- Bao bữa sáng.', 47, 8),
+(216, 'Executive Suite', 3, '2678000', '- Diện tích: 80 m2 - Hướng vườn - Có 1 Giường đôi - Bao bữa sáng.', 47, 8),
+(217, '3 Bedrooms Villa - Private Sale', 2, '5569000', '- Diện tích: 330 m2\n\n- Hướng vườn\n\n- Có  Giường đôi / 2 Giường đơn, 2 Giường đôi\n- Bao bữa sáng, tối.', 47, 8),
+(218, '4 Bedrooms Villa, 3 WC - Private Sale', 2, '8569000', '- Diện tích: 383 m2\n\n- Hướng vườn\n\n- có 4 Giường đôi\n- Bao bữa sáng, tối.', 47, 8),
+(219, '4 Bedrooms Beach Front Villa', 1, '21569000', '	- Diện tích: 608 m2 - Hướng biển - có 4 Giường đôi - Bao bữa sáng, tối.', 47, 8),
+(220, 'Deluxe sea view', 3, '3215000', 'Căn phòng ấm cúng, rộng 34m2, lý tưởng cho các cặp đôi và khách du lịch thích đi một mình với các tiện nghi tiêu chuẩn.', 48, 8),
+(222, 'Terrace pool family suite	', 2, '5315000', 'Phòng Terrace Pool Family Suites nằm ở tầng trệt là lựa chọn tuyệt vời cho gia đình đông thành viên nhờ diện tích lên đến 63m2 .', 48, 8),
+(223, 'Ocean view studio', 3, '3315000', '- Phòng Ocean View Studio - Nằm ở tầng trên khu nhà nghỉ dưỡng, ban công của phòng này đủ rộng để ngắm biển và các hòn đảo ngoài khơi, lý tưởng cho cặp đôi và gia đình nhỏ', 48, 8),
+(225, 'Biệt thự Beachfront Pool Villa', 1, '8167000', 'Là nơi yêu thích cho đôi uyên ương, Beachfront Pool Villas không chỉ có hồ bơi riêng mà còn có lối đi hướng thẳng xuống bãi biển cát trắng.', 48, 8),
+(226, 'Ocean view pool villa', 1, '8367000', 'Ocean View Pool Villa rất sang trọng với lối kiến trúc vương giả và diện tích 95m2, sẽ là tổ ấm ngọt ngào cho các đôi trong tuần trăng mật hoặc gia đình.', 48, 8),
+(227, 'Superior', 3, '2123000', '- Hướng: phố \n- Diện tích: 35m² - Một giường lớn', 49, 8),
+(228, 'Junior Suite Ocean View', 2, '3123000', '- Hướng: Biển\n- Diện tích: 55m² \n- Một giường lớn\n- bao bữa sáng', 49, 8),
+(229, 'Executive Suite Ocean View', 1, '4123000', '- Hướng: Biển - Diện tích: 65m² - Một giường lớn - bao bữa sáng', 49, 8);
+INSERT INTO `room_hotel` (`id`, `name`, `type`, `prices`, `detail`, `id_hotel`, `number`) VALUES
+(231, 'Executive Suite Ocean View', 3, '1723000', 'Phòng có diện tích từ 49 m2 đến 70 m2, được thiết kế với 1 giường đôi dành cho 2 người, kê thêm tối đa 1 giường phụ. Phòng được trang bị đầy đủ thiết bị tiện nghi hiện đại như truy cập internet tốc độ cao, đa chức năng điện thoại với hai đường dây điện thoại gọi quốc tế. Khách sạn được khách kinh doanh lựa chọn và đánh giá cao loại phòng này, mang đến một không gian riêng biệt, thoải mái giúp quý khách hoàn thành công việc một cách dễ dàng, tất cả trang thiết bị tiện nghi tiêu chuẩn 5 sao quốc tế.', 50, 8),
+(232, 'phòng Two Bedroom Penthouse', 2, '7223000', 'Phòng có diện tích 180 m2, được thiết kế với 1 giường đôi dành cho 2 người, có thể kê thêm tối đa 1 giường phụ. Phòng được trang bị đầy đủ thiết bị tiện nghi hiện đại như truy cập internet tốc độ cao không dây và có dây, có 2 giường ngủ với ban công riêng có hướng nhìn tuyệt đẹp, phòng khách riêng biệt, khu vực ăn uống, phòng tắm hướng biển, tất cả trang thiết bị tiện nghi khách sạn tiêu chuẩn 5 sao quốc tế.', 50, 8),
+(233, 'phòng Two Bedroom Apartment', 2, '6223000', 'Phòng có diện tích từ 60 m2 đến 174 m2, được thiết kế có các giường đôi dành cho 4 người, phòng có thể kê thêm tối đa 1 giường phụ. Tất cả các phòng đều được trang bị với một nhà bếp cộng với phòng khách riêng biệt, khu vực ăn uống có hướng nhìn toàn cảnh vịnh Nha Trang. Màu sắc được trang trí với phong cách ấm áp, chủ đạo là màu vàng và màu be, cùng với nội thất đặc biệt, không làm ảnh hưởng giữa địa phương và nội thất hiện đại, sang trọng vốn có của khách sạn, tất cả tiện nghi trang thiết bị tiêu chuẩn 5 sao quốc tế.\n\n', 50, 8),
+(234, 'phòng Presidental Suite', 1, '10223000', 'Phòng có diện tích 182 m2 , được thiết kế với một giường đôi dành cho 2 người, có thể kê thêm tối đa một giường phụ. Tất cả các phòng đều có ban công riêng với hướng nhìn ra phía đại dương. Phòng được trang  bị hiện đại và tinh tế từ nhà bếp, phòng ăn, thiết kế trang nhã cho phòng khách ấm cúng với hệ thống giải trí, trang thiết bị hiện đại như khu sảnh riêng biệt, phòng tắm có hướng biển, có thể tổ chức các cuộc họp riêng biệt với các thiết bị viễn thông, chỗ ngồi rộng rãi, chức năng kinh doanh hiện đại…Mang đến không gian riêng tư , biệt lập và thoải mái chắc chắn sẽ đáp ứng mọi nhu cầu của du khách, tất cả tiện nghi và trang thiết bị tiêu chuẩn 5 sao quốc tế', 50, 8),
+(235, 'Deluxe Room', 3, '2223000', '- Diện tích: 32 m²\n- Phòng này có ban công, TV truyền hình vệ tinh và khu vực ghế ngồi.\n\n- Giá phòng áp dụng cho 2 người lớn. Phòng có thể chứa tối đa 3 người lớn và 1 trẻ em dưới 4 tuổi. Mỗi phòng có thể kê thêm tối đa 1 giường phụ.', 51, 8),
+(237, 'Executive Suite', 3, '5034500', 'Phòng này có khu vực ghế ngồi, ấm đun nước điện và TV truyền hình vệ tinh. Giá phòng áp dụng cho 2 người lớn. Phòng có thể chứa tối đa 3 người lớn và 1 trẻ em dưới 4 tuổi. Mỗi phòng có thể kê thêm tối đa 1 giường phụ. Gói bao 3 bữa sẽ bắt đầu bằng bữa tối vào ngày nhận phòng và kết thúc bằng bữa trưa vào ngày trả phòng. Nếu du khách muốn dùng bữa trưa vào ngày đến thay vì ngày trả phòng, vui lòng thông báo cho chỗ nghỉ trước ít nhất 5 ngày.', 51, 8),
+(238, 'Bedroom Villa', 2, '11034500', '- Diện tích 370 m²\n- Biệt thự này có máy điều hòa.\n\n- Giá được áp dụng cho 6 người lớn. Biệt thự có thể chứa được tối đa 6 người lớn và 6 trẻ em và không thể chứa giường phụ.', 51, 8),
+(239, 'Bedroom Beach Front', 2, '15034500', '- Diện tích: 370 m²\n- Biệt thự này có máy điều hòa.\n\n- Giá được áp dụng cho 6 người lớn. Biệt thự có thể chứa được tối đa 6 người lớn kèm 6 trẻ em và không thể chứa giường phụ. Gói bao 3 bữa sẽ bắt đầu bằng bữa tối vào ngày nhận phòng và kết thúc bằng bữa trưa vào ngày trả phòng. Nếu quý khách muốn dùng bữa trưa vào ngày đến thay vì ngày trả phòng, vui lòng thông báo cho chỗ nghỉ trước ít nhất 5 ngày.', 51, 8),
+(240, 'Bedroom Presidential Villa', 1, '105034500', '- Diện Tích: 570 m²\n- Biệt thự này có khu vực phòng ăn, khu vực ghế ngồi và hồ bơi riêng.\n- Dầy đủ các trang thiết bị cần thiết.', 51, 8);
 
 -- --------------------------------------------------------
 
@@ -531,13 +681,13 @@ ALTER TABLE `hotel`
 -- AUTO_INCREMENT for table `repas`
 --
 ALTER TABLE `repas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `room_hotel`
 --
 ALTER TABLE `room_hotel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=241;
 
 --
 -- AUTO_INCREMENT for table `user`
