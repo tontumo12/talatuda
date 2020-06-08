@@ -119,8 +119,12 @@
                 if (data === "" || data === null) {
                     return ""
                 } else {
-                    let a = config.city.filter(el => el.value == data)
-                    return a[0].text
+                    let a = config.city.find(el => el.value == data)
+                    if(!a){
+                        return data
+                    }else{
+                        return a.text
+                    }
                 }
             },
             gotoDetail(data) {
