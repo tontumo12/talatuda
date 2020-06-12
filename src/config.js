@@ -110,14 +110,9 @@ export default {
         //     img: '/ha.png'
         // },
         {
-            value: 'NT',
-            text: 'Nha Trang',
+            value: 'KH',
+            text: 'Khánh Hòa',
             img: '/nt.png'
-        },
-        {
-            value: 'QN',
-            text: 'Quảng Ninh',
-            img: '/qn.png'
         },
         {
             value: 'HP',
