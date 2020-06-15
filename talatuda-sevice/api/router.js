@@ -39,6 +39,7 @@ module.exports = function (app) {
   app.post('/repas', upload.single('file'), repas.createRepas)
   app.put('/repas/:repasId', repas.updateRepas)
   app.route('/repas/:repasId') //done
+    .post(repas.createPointRepas)
     .get(repas.getDetailRepas)
     .delete(repas.deleteRepas)
   app.route('/login')

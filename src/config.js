@@ -94,21 +94,17 @@ export default {
             text: 'Hồ Chí Minh',
             img: '/hcm.png'
         },
-        // {
-        //     value: 'DL',
-        //     text: 'Đà Lạt',
-        //     img: '/dl.png'
-        // },
+        
         {
             value: 'DN',
             text: 'Đà Nẵng',
             img: '/dn.png'
         },
-        // {
-        //     value: 'HA',
-        //     text: 'Hội An',
-        //     img: '/ha.png'
-        // },
+        {
+            value: 'HA',
+            text: 'Hội An',
+            img: '/ha.png'
+        },
         {
             value: 'KH',
             text: 'Khánh Hòa',
@@ -150,6 +146,6 @@ export default {
             value: 'P',
             text: 'Hải sản'
         }
-        
+  
     ]
 }

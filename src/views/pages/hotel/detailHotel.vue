@@ -95,7 +95,7 @@
     import {
         comment
     } from '@/services/comment'
-    import config from '@/config'
+
     export default {
         props: {
             idHotel: {
@@ -157,12 +157,7 @@
                 })
             },
             returnCity(data) {
-                if (data === "" || data === null) {
-                    return ""
-                } else {
-                    let a = config.location.filter(el => el.value == data)
-                    return a[0].text
-                }
+                return data
             },
             returnInt(data) {
                 if (data == "1") {
