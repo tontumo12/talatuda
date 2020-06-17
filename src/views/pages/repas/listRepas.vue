@@ -46,12 +46,20 @@
                     <b-card-text>
                         <p>{{i.detail}}</p>
                         <p>Giá: {{i.pices.toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0})}} VNĐ</p>
+                        <p class="text-muted">
+                            <b-icon-star v-for="i in i.pointAvg" :key="i"></b-icon-star>
+                        </p>
                     </b-card-text>
 
-                    <b-button block variant="outline-success" @click="fetchChoiseRepas(i.id)">Chọn</b-button>
+                    <b-button variant="outline-success" @click="fetchChoiseRepas(i.id)">Chọn</b-button>
+                    <b-button variant="outline-success" @click="repas = i, modalShow = true">Đánh giá</b-button>
                 </b-card>
            </b-col>
        </b-row>
+        <b-modal v-model="modalShow" hide-footer centered :title="returnName">
+            <b-form-rating v-model="point" variant="warning" class="mb-2"></b-form-rating>
+            <b-button block variant="outline-info" class="mt-3" @click="fetchPointRepas()">Xác nhận</b-button>
+        </b-modal>
    </b-container>
 </template>
 <script>
@@ -62,6 +70,8 @@ import {
 export default {
     data() {
         return {
+            modalShow: false,
+            repas:{},
             repasList:[],
             selected: null,
             width: 0,
@@ -81,12 +91,16 @@ export default {
                     value: 'FM',
                     text: 'Nữ'
                 }
-            ]
+            ],
+            point: 0
         }
     },
     computed: {
         repaType() {
             return config.repasType
+        },
+        returnName() {
+            return `Chấm điểm cho món ăn ${this.repas.name}`
         }
     },
     created() {
@@ -136,7 +150,19 @@ export default {
         fetchChoiseRepas(id){
             repas.choiseRepas(id).then(result=>{
                 if(result.status == "SUCCESS"){
-                    this.alertSuccess('Chọn thành công')
+                    this.alertSuccess(`Chọn thành công mon ${id} thanh cong`)
+                }else{
+                    this.alertError('Thất bại')
+                }
+            })
+        },
+        fetchPointRepas(){
+            repas.pointRepas(this.repas.id,this.point).then(result=>{
+                if(result.status == "SUCCESS"){
+                    this.alertSuccess(`Danh gia mon ${this.repas.name} thanh cong`)
+                    this.repas = {}
+                    this.point = 0
+                    this.modalShow = false
                 }else{
                     this.alertError('Thất bại')
                 }
