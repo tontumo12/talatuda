@@ -68,5 +68,12 @@ module.exports = {
             if (err) throw err
             res.json({status:'SUCCESS',message: 'Chấm điểm thành công'})
         })
+    },
+    getPoitRepas: (req, res) => {
+        let sql = 'SELECT sum(point) as point, repas_id as id FROM point_repa WHERE repas_id = ? GROUP BY repas_id'
+        db.query(sql, [req.params.repasId], (err, response) => {
+            if (err) throw err
+            res.json({status:'SUCCESS',message: 'Get thành công', response: response[0]})
+        })
     }
 }
