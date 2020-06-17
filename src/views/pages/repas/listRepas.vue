@@ -27,6 +27,32 @@
                 </b-button>
            </b-col>
        </b-row>
+       <b-row class="mt-3 pl-3" v-if="repaRecomment !=== null">
+           <h2>
+               Món ăn đề suất
+           </h2>
+       </b-row>
+       <b-row v-if="repaRecomment !=== null">
+         <b-col cols="3">
+            <b-card
+                    :title="repaRecomment.name"
+                    :img-src="repaRecomment.img"
+                    :img-alt="repaRecomment.name"
+                    img-top
+                    tag="article"
+                    style="max-width: 20rem;"
+                    class="mb-2"
+                >
+                    <b-card-text>
+                        <p>{{repaRecomment.detail}}</p>
+                        <p>Giá: {{repaRecomment.pices.toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0})}} VNĐ</p>
+                    </b-card-text>
+
+                    <b-button variant="outline-success" @click="fetchChoiseRepas(repaRecomment.id)">Chọn</b-button>
+                    <b-button variant="outline-success" @click="repas = repaRecomment, modalShow = true">Đánh giá</b-button>
+                </b-card>
+         </b-col>
+       </b-row>
        <b-row class="mt-3 pl-3">
            <h2>
                Danh sách món ăn cho bạn
@@ -48,10 +74,15 @@
                         <p>Giá: {{i.pices.toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0})}} VNĐ</p>
                     </b-card-text>
 
-                    <b-button block variant="outline-success" @click="fetchChoiseRepas(i.id)">Chọn</b-button>
+                    <b-button variant="outline-success" @click="fetchChoiseRepas(i.id)">Chọn</b-button>
+                    <b-button variant="outline-success" @click="repas = i, modalShow = true">Đánh giá</b-button>
                 </b-card>
            </b-col>
        </b-row>
+        <b-modal v-model="modalShow" hide-footer centered :title="returnName">
+            <b-form-rating v-model="point" variant="warning" class="mb-2"></b-form-rating>
+            <b-button block variant="outline-info" class="mt-3" @click="fetchPointRepas()">Xác nhận</b-button>
+        </b-modal>
    </b-container>
 </template>
 <script>
@@ -62,6 +93,8 @@ import {
 export default {
     data() {
         return {
+            modalShow: false,
+            repas:{},
             repasList:[],
             selected: null,
             width: 0,
@@ -81,12 +114,17 @@ export default {
                     value: 'FM',
                     text: 'Nữ'
                 }
-            ]
+            ],
+            point: 0,
+            repaRecomment: null
         }
     },
     computed: {
         repaType() {
             return config.repasType
+        },
+        returnName() {
+            return `Chấm điểm cho món ăn ${this.repas.name}`
         }
     },
     created() {
@@ -105,7 +143,7 @@ export default {
             } = this.$store;
             dispatch('alert/error', `${data}`)
         },
-        getRepasFlInfo() {
+        async getRepasFlInfo() {
             let calo = 0
             let min = 0
             let max = 0
@@ -114,15 +152,18 @@ export default {
             }else if(this.sexe === 'FM'){
                 calo = 10*this.width + 6.25*this.height - 5*this.age -161
             }else{
-                this.alertError('Bạn chưa chọn giới tính')
+                calo = 10*this.width + 6.25*this.height - 5*this.age
             }
             min = ((calo*1.2)/3) * 0.7
             max = ((calo*1.2)/3) * 1.5
-            this.fetchApiType(min,max)
+            await this.fetchApiType(min,max)
         },
-        getListRepas() {
+        async getListRepas(){
             repas.listRepas().then(result=>{
                 this.repasList = result.response
+                for(let i = 0; i < result.response.length; i++){
+                  await this.getPointRepa(result.response[i].id)
+                }
             })
         },
         fetchApiType(min,max) {
@@ -136,11 +177,40 @@ export default {
         fetchChoiseRepas(id){
             repas.choiseRepas(id).then(result=>{
                 if(result.status == "SUCCESS"){
-                    this.alertSuccess('Chọn thành công')
+                    this.alertSuccess(`Chọn thành công mon ${id} thanh cong`)
                 }else{
                     this.alertError('Thất bại')
                 }
             })
+        },
+        fetchPointRepas(){
+            repas.pointRepas(this.repas.id,this.point).then(result=>{
+                if(result.status == "SUCCESS"){
+                    this.alertSuccess(`Danh gia mon ${this.repas.name} thanh cong`)
+                    this.repas = {}
+                    this.point = 0
+                    this.modalShow = false
+                }else{
+                    this.alertError('Thất bại')
+                }
+            })
+        },
+        getPointRepa(id){
+            repas.getPointRepa(id).then(result => {
+               let a = this.repasList.find(e => e.id == result.response.id)
+               a['point'] = result.response.point
+            })
+        },
+        checkPoint(){
+            let point = []
+            this.repasList.forEach(e => {
+               e['pointRecomment'] = e.point * 0.7 + e.choise * 0.3
+               point.push(e['pointRecomment'])
+            })
+            let max = Math.max.apply(Math, point)
+            this.repasList = [...this.repasList]
+            let maxRepas = this.repasList.find(ele => ele.pointRecomment == max)
+            this.repaRecomment = maxRepas
         }
     },
 }

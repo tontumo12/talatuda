@@ -25,7 +25,7 @@
                 </b-card>
                 <b-card img-src="tite1.png" img-alt="Card image" img-top>
                     <b-card-text>
-                        Giá cá
+                        Giá cả
                     </b-card-text>
                 </b-card>
                 <b-card img-src="tite1.png" img-alt="Card image" img-top>
