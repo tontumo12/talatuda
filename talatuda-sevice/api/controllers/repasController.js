@@ -7,7 +7,7 @@ const db = require('../../db')
 module.exports = {
     getRepas: (req, res) => {
         if (req.query.min != null && req.query.min != undefined && req.query.max != null && req.query.max != undefined) {
-            let sql = 'SELECT * FROM repas WHERE type =? AND energi BETWEEN ? AND ? ORDER BY choise DESC'
+            let sql = 'SELECT * FROM repas WHERE type =? AND energi BETWEEN ? AND ?'
             db.query(sql, [req.query.type,req.query.min,req.query.max], (err, response) => {
                 if (err) throw err
                 res.json({status:'SUCCESS',message: 'Lấy thông tin thành công',response:response})
