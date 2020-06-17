@@ -128,7 +128,7 @@ export default {
             }else if(this.sexe === 'FM'){
                 calo = 10*this.width + 6.25*this.height - 5*this.age -161
             }else{
-                this.alertError('Bạn chưa chọn giới tính')
+                calo = 10*this.width + 6.25*this.height - 5*this.age
             }
             min = ((calo*1.2)/3) * 0.7
             max = ((calo*1.2)/3) * 1.5
@@ -137,6 +137,9 @@ export default {
         getListRepas() {
             repas.listRepas().then(result=>{
                 this.repasList = result.response
+                for(let i = 0; i < result.response.length; i++){
+                  this.getPointRepa(result.response[i].id)
+                }
             })
         },
         fetchApiType(min,max) {
@@ -166,6 +169,12 @@ export default {
                 }else{
                     this.alertError('Thất bại')
                 }
+            })
+        },
+        getPointRepa(id){
+            repas.getPointRepa(id).then(result => {
+               let a = this.repasList.find(e => e.id == result.response.id)
+               a['point'] = result.response.point
             })
         }
     },
