@@ -42,6 +42,8 @@ module.exports = function (app) {
     .post(repas.createPointRepas)
     .get(repas.getDetailRepas)
     .delete(repas.deleteRepas)
+  app.route('/repas/:repasId/point')
+    .get(repas.getPoitRepas)
   app.route('/login')
     .post(user.login) //done
   app.route('/loginhost')
