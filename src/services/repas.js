@@ -8,7 +8,8 @@ export const repas = {
     deleteRepas,
     listRepasType,
     choiseRepas,
-    pointRepas
+    pointRepas,
+    getPointRepa
 }
 
 function listRepas() {
@@ -75,6 +76,17 @@ function pointRepas(repasId,point) {
         method: 'POST',
         headers: header,
         body: JSON.stringify(payload),
+        mode: 'cors'
+    }, 4)
+}
+function getPointRepa(repasId) {
+    let header = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+    }
+    return responseService.fetchRetry(`${config.apiUrl}repas/${repasId}/point`, {
+        method: 'GET',
+        headers: header,
         mode: 'cors'
     }, 4)
 }
