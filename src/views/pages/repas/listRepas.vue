@@ -27,6 +27,32 @@
                 </b-button>
            </b-col>
        </b-row>
+       <b-row class="mt-3 pl-3" v-if="repaRecomment !=== null">
+           <h2>
+               Món ăn đề suất
+           </h2>
+       </b-row>
+       <b-row v-if="repaRecomment !=== null">
+         <b-col cols="3">
+            <b-card
+                    :title="repaRecomment.name"
+                    :img-src="repaRecomment.img"
+                    :img-alt="repaRecomment.name"
+                    img-top
+                    tag="article"
+                    style="max-width: 20rem;"
+                    class="mb-2"
+                >
+                    <b-card-text>
+                        <p>{{repaRecomment.detail}}</p>
+                        <p>Giá: {{repaRecomment.pices.toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0})}} VNĐ</p>
+                    </b-card-text>
+
+                    <b-button variant="outline-success" @click="fetchChoiseRepas(repaRecomment.id)">Chọn</b-button>
+                    <b-button variant="outline-success" @click="repas = repaRecomment, modalShow = true">Đánh giá</b-button>
+                </b-card>
+         </b-col>
+       </b-row>
        <b-row class="mt-3 pl-3">
            <h2>
                Danh sách món ăn cho bạn
@@ -46,9 +72,6 @@
                     <b-card-text>
                         <p>{{i.detail}}</p>
                         <p>Giá: {{i.pices.toLocaleString(undefined, {minimumFractionDigits: 0,maximumFractionDigits: 0})}} VNĐ</p>
-                        <p class="text-muted">
-                            <b-icon-star v-for="i in i.pointAvg" :key="i"></b-icon-star>
-                        </p>
                     </b-card-text>
 
                     <b-button variant="outline-success" @click="fetchChoiseRepas(i.id)">Chọn</b-button>
@@ -92,7 +115,8 @@ export default {
                     text: 'Nữ'
                 }
             ],
-            point: 0
+            point: 0,
+            repaRecomment: null
         }
     },
     computed: {
@@ -119,7 +143,7 @@ export default {
             } = this.$store;
             dispatch('alert/error', `${data}`)
         },
-        getRepasFlInfo() {
+        async getRepasFlInfo() {
             let calo = 0
             let min = 0
             let max = 0
@@ -132,13 +156,13 @@ export default {
             }
             min = ((calo*1.2)/3) * 0.7
             max = ((calo*1.2)/3) * 1.5
-            this.fetchApiType(min,max)
+            await this.fetchApiType(min,max)
         },
-        getListRepas() {
+        async getListRepas(){
             repas.listRepas().then(result=>{
                 this.repasList = result.response
                 for(let i = 0; i < result.response.length; i++){
-                  this.getPointRepa(result.response[i].id)
+                  await this.getPointRepa(result.response[i].id)
                 }
             })
         },
@@ -176,6 +200,17 @@ export default {
                let a = this.repasList.find(e => e.id == result.response.id)
                a['point'] = result.response.point
             })
+        },
+        checkPoint(){
+            let point = []
+            this.repasList.forEach(e => {
+               e['pointRecomment'] = e.point * 0.7 + e.choise * 0.3
+               point.push(e['pointRecomment'])
+            })
+            let max = Math.max.apply(Math, point)
+            this.repasList = [...this.repasList]
+            let maxRepas = this.repasList.find(ele => ele.pointRecomment == max)
+            this.repaRecomment = maxRepas
         }
     },
 }
