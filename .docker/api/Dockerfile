@@ -1,4 +1,4 @@
-FROM node:boron
+FROM node:latest
 RUN mkdir -p /app/talatuda/api
 # Create app directory
 WORKDIR /app/talatuda/api
@@ -16,5 +16,4 @@ RUN npm install
 COPY . ./app/talatuda/api
 
 EXPOSE 3000
-
 CMD [ "npm", "start" ]

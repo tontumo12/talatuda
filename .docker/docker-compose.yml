@@ -8,3 +8,14 @@ services:
     build:
       context: ../web
       dockerfile: ../docker/web/Dockerfile
+  mysql:
+    build:
+      context: ./mysql
+      dockerfile: ../docker/db/Dockerfile
+      args:
+        - MYSQL_DATABASE=talatuda
+        - MYSQL_USER=tunt
+        - MYSQL_PASSWORD=120597
+        - MYSQL_ROOT_PASSWORD=tunt120597
+      port:
+        - "3306:3306"
