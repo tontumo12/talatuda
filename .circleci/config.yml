@@ -62,8 +62,8 @@ jobs:
       - checkout
       - run: |
          echo "Vietnam1205" | docker login --username tontumo12 --password-stdin
-      - run: docker build -t tontumo12/tunt:api
-      - run: docker build -t tontumo12/tunt:web
+      - run: docker pull tontumo12/tunt:api
+      - run: docker pull tontumo12/tunt:web
       - run: docker push tontumo12/tunt:api
       - run: docker push tontumo12/tunt:web
   deploy:
