@@ -3,6 +3,7 @@ orbs:
   aws-ecr: circleci/aws-ecr@6.12.0
   aws-ecs: circleci/aws-ecs@1.2.0
   aws-cli: circleci/aws-cli@1.2.1
+  docker: circleci/docker@1.4.0
 setup:
   parameters:
     aws-access-key-id:
@@ -56,22 +57,20 @@ setup:
       type: enum
 jobs:
   build:
-    docker:
-      - image: circleci/docker@1.4.0
     steps:
       - checkout
       - setup_remote_docker
-      - run: |
-          echo "Vietnam1205" | docker login --username tontumo12 --password-stdin
-          docker run -d --name db hotel_manager
-      - run: docker build -t tontumo12/tunt:api
-      - run: docker build -t tontumo12/tunt:web
-      - run: docker push tontumo12/tunt:api
-      - run: docker push tontumo12/tunt:web
-      - persist_to_workspace:
-          root: .
-          paths:
-            - docker-image
+      - docker/check
+      - docker/build:
+          image: tontumo12/tunt:api
+          image: tontumo12/tunt:web
+      - docker/push:
+          digest-path: /tmp/digest.txt
+          image: tontumo12/tunt:api
+          image: tontumo12/tunt:web
+      - run:
+          command: |
+            echo "Digest is: $(</tmp/digest.txt)"
   deploy:
     docker:
       - image: circleci/python:3.6.4
