@@ -3,56 +3,57 @@ orbs:
   aws-ecr: circleci/aws-ecr@6.12.0
   aws-ecs: circleci/aws-ecs@1.2.0
   aws-cli: circleci/aws-cli@1.2.1
-parameters:
-  aws-access-key-id:
-    default: AKIAZZNE2SHP7TMB7HKL
-    description: |
-      AWS access key id for IAM role. Set this to the name of
-      the environment variable you will use to hold this
-      value, i.e. AWS_ACCESS_KEY.
-    type: env_var_name
-  aws-region:
-    default: us-east-2
-    description: |
-      Env var of AWS region to operate in
-      (defaults to AWS_DEFAULT_REGION)
-    type: env_var_name
-  aws-secret-access-key:
-    default: ezEyWW1L3FOg9gXu9zL6v4GGC388oecMu11zo4Nh
-    description: |
-      AWS secret key for IAM role. Set this to the name of
-      the environment variable you will use to hold this
-      value, i.e. $AWS_SECRET_ACCESS_KEY.
-    type: env_var_name
-  configure-default-region:
-    default: true
-    description: >
-      Some AWS actions don't require a region; set this to false if you do not
-      want to store a default region in ~/.aws/config
-    type: boolean
-  disable-aws-pager:
-    default: true
-    description: |
-      Set to false to skip forceful disabling of all AWS CLI output paging.
-    type: boolean
-  profile-name:
-    default: default
-    description: Profile name to be configured.
-    type: string
-  skip-install-check:
-    default: false
-    description: |
-      Set to true to skip checking for existing installations before installing.
-    type: boolean
-  version:
-    default: '2'
-    description: >-
-      Which version of the CLI to install. Version "1" and "2" are currently
-      available. Will default to "2"
-    enum:
-      - '1'
-      - '2'
-    type: enum
+setup:
+  parameters:
+    aws-access-key-id:
+      default: AKIAZZNE2SHP7TMB7HKL
+      description: |
+        AWS access key id for IAM role. Set this to the name of
+        the environment variable you will use to hold this
+        value, i.e. AWS_ACCESS_KEY.
+      type: env_var_name
+    aws-region:
+      default: us-east-2
+      description: |
+        Env var of AWS region to operate in
+        (defaults to AWS_DEFAULT_REGION)
+      type: env_var_name
+    aws-secret-access-key:
+      default: ezEyWW1L3FOg9gXu9zL6v4GGC388oecMu11zo4Nh
+      description: |
+        AWS secret key for IAM role. Set this to the name of
+        the environment variable you will use to hold this
+        value, i.e. $AWS_SECRET_ACCESS_KEY.
+      type: env_var_name
+    configure-default-region:
+      default: true
+      description: >
+        Some AWS actions don't require a region; set this to false if you do not
+        want to store a default region in ~/.aws/config
+      type: boolean
+    disable-aws-pager:
+      default: true
+      description: |
+        Set to false to skip forceful disabling of all AWS CLI output paging.
+      type: boolean
+    profile-name:
+      default: default
+      description: Profile name to be configured.
+      type: string
+    skip-install-check:
+      default: false
+      description: |
+        Set to true to skip checking for existing installations before installing.
+      type: boolean
+    version:
+      default: '2'
+      description: >-
+        Which version of the CLI to install. Version "1" and "2" are currently
+        available. Will default to "2"
+      enum:
+        - '1'
+        - '2'
+      type: enum
 jobs:
   build:
     docker:
