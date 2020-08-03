@@ -6,13 +6,13 @@ ARG MYSQL_USER
 ARG MYSQL_PASSWORD
 ARG MYSQL_ROOT_PASSWORD
 
-ENV MYSQL_DATABASE=$MYSQL_DATABASE
-ENV MYSQL_USER=$MYSQL_USER
-ENV MYSQL_PASSWORD=$MYSQL_PASSWORD
-ENV MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
+ENV MYSQL_DATABASE=talatuda
+ENV MYSQL_USER=tunt
+ENV MYSQL_PASSWORD=120597
+ENV MYSQL_ROOT_PASSWORD=tunt120597
 
-ADD data.sql /etc/mysql/data.sql
-RUN sed -i 's/MYSQL_DATABASE/'$MYSQL_DATABASE'/g' /etc/mysql/data.sql
-RUN cp /etc/mysql/data.sql /docker-entrypoint-initdb.d
+ADD hotel_manager.sql ./hotel_manager.sql
+RUN sed -i 's/MYSQL_DATABASE/'talatuda'/g' ./hotel_manager.sql
+RUN cp ./hotel_manager.sql /docker-entrypoint-initdb.d
 
 EXPOSE 3306
