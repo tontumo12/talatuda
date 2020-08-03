@@ -1,21 +1,25 @@
 version: '3.3'
 services:
   api:
+    image: tontumo12/tunt:api
+    container_name: tunt_api
     build:
       context: ../api
-      dockerfile: ../docker/api/Dockerfile
+      dockerfile: ../.docker/api/Dockerfile
   web:
+    image: tontumo12/tunt:web
+    container_name: tunt_web
     build:
       context: ../web
-      dockerfile: ../docker/web/Dockerfile
-  mysql:
-    build:
-      context: ./mysql
-      dockerfile: ../docker/db/Dockerfile
-      args:
-        - MYSQL_DATABASE=talatuda
-        - MYSQL_USER=tunt
-        - MYSQL_PASSWORD=120597
-        - MYSQL_ROOT_PASSWORD=tunt120597
-      port:
-        - "3306:3306"
+      dockerfile: ../.docker/web/Dockerfile
+  # mysql:
+  #   build:
+  #     context: ./db
+  #     dockerfile: /Dockerfile
+  #     args:
+  #       - MYSQL_DATABASE=talatuda
+  #       - MYSQL_USER=tunt
+  #       - MYSQL_PASSWORD=120597
+  #       - MYSQL_ROOT_PASSWORD=tunt120597
+  #   ports:
+  #     - "12345:12345"
