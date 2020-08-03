@@ -50,10 +50,9 @@ jobs:
               eval $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
               docker push $FULL_IMAGE_NAME
         - aws-ecs/update-service:
-            family: "nginx-service-service"
-            cluster-name: "talatuda-cluster"
-            container-image-name-updates: "container=nginx-service-service,image-and-tag=tontumo12/tunt:api"
-            container-image-name-updates: "container=nginx-service-service,image-and-tag=tontumo12/tunt:web"
+            family: "${ECS_SERVICE_NAME}"
+            cluster-name: "${ECS_CLUSTER_NAME}"
+            container-image-name-updates: "container=${ECS_SERVICE_NAME},image-and-tag=${FULL_IMAGE_NAME}"
             container-env-var-updates: "container=nginx-service-service,name=VERSION_INFO,value=https://app.circleci.com/pipelines/github/tontumo12_1,container=nginx-service-service,name=BUILD_DATE,value=\"$(date)\""
             verify-revision-is-deployed: true
         - run:
