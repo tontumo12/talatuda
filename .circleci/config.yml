@@ -57,7 +57,7 @@ setup:
 jobs:
   build:
     docker:
-      - image: circleci/docker@1.3.0
+      - image: circleci/docker@1.4.0
     steps:
       - checkout
       - setup_remote_docker
@@ -74,7 +74,7 @@ jobs:
             - docker-image
   deploy:
     docker:
-      - image: circleci/python:3.6.1
+      - image: circleci/python:3.6.4
     environment:
       AWS_DEFAULT_OUTPUT: json
     steps:
