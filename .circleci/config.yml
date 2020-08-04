@@ -93,7 +93,7 @@ jobs:
       - run:
           name: Push image
           command: |
-            eval $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+            eval $(aws ecr get-login --region us-east-2 --no-include-email)
             docker push $FULL_IMAGE_NAME
       - aws-ecs/update-service:
           family: "${ECS_SERVICE_NAME}"
