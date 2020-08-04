@@ -42,18 +42,6 @@ jobs:
             echo 'export ECS_CLUSTER_NAME="talatuda-cluster"' >> $BASH_ENV
             echo 'export ECS_SERVICE_NAME="nginx-service-service"' >> $BASH_ENV
             echo 'export FULL_IMAGE_NAME="talatuda"' >> $BASH_ENV
-      # - run:
-      #     command: |
-      #       aws configure set aws_access_key_id \
-      #         AKIAZZNE2SHP7TMB7HKL \
-      #         --profile tunt
-      #     name: Configure AWS Access Key ID
-      # - run:
-      #     command: |
-      #       aws configure set aws_secret_access_key \
-      #         ezEyWW1L3FOg9gXu9zL6v4GGC388oecMu11zo4Nh \
-      #           --profile tunt
-      #     name: Configure AWS Secret Access Key
       - run:
           name: Push image
           command: |
