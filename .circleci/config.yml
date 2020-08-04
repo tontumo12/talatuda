@@ -85,12 +85,12 @@ jobs:
           command: |
             echo 'export ECS_CLUSTER_NAME="talatuda-cluster"' >> $BASH_ENV
             echo 'export ECS_SERVICE_NAME="nginx-service-service"' >> $BASH_ENV
-            echo 'export FULL_IMAGE_NAME="otani-tunt.dkr.ecr.us-east-2.amazonaws.com/arn:aws:iam::673044926943:user/ci-cd-test:https://app.circleci.com/pipelines/github/tontumo12"' >> $BASH_ENV
+            echo 'export FULL_IMAGE_NAME="talatuda"' >> $BASH_ENV
       - run:
           name: Push image
           command: |
-            eval $(aws ecr get-login --region us-east-2 --no-include-email)
-            docker push $FULL_IMAGE_NAME
+            aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 673044926943.dkr.ecr.us-east-2.amazonaws.com
+            docker build -t $FULL_IMAGE_NAME .
       - aws-ecs/update-service:
           family: "${ECS_SERVICE_NAME}"
           cluster-name: "${ECS_CLUSTER_NAME}"
