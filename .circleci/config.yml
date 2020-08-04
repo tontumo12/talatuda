@@ -83,7 +83,7 @@ jobs:
       - run:
           name: Load docker image
           command: |
-            docker load --input workspace/docker-image/image.tar
+            docker load --input tontumo12/tunt.tar
       - run:
           name: Setup common environment variables
           command: |
