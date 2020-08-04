@@ -57,15 +57,9 @@ setup:
       type: enum
 jobs:
   build:
-    docker:
-      - image: circleci/ruby:2.4.2-jessie-node
+    machine: true
     steps:
       - checkout
-      - run:
-        name: "Update Node.js and npm"
-        command: |
-          curl -sSL "https://nodejs.org/dist/v11.10.0/node-v11.10.0-linux-x64.tar.xz" | sudo tar --strip-components=2 -xJ -C /usr/local/bin/ node-v11.10.0-linux-x64/bin/node
-          curl https://www.npmjs.com/install.sh | sudo bash
       - run: |
          echo "Vietnam1205" | docker login --username tontumo12 --password-stdin
       - run: docker pull tontumo12/tunt:api
