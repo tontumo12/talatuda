@@ -89,9 +89,8 @@ jobs:
       - run:
           name: Push image
           command: |
-            aws --region us-east-2 ecr get-login-password
-            docker push tontumo12/tunt:api
-            docker push tontumo12/tunt:web
+            eval $(aws ecr get-login --region us-east-2 --no-include-email)
+            docker push $FULL_IMAGE_NAME
       - aws-ecs/update-service:
           family: "${ECS_SERVICE_NAME}"
           cluster-name: "${ECS_CLUSTER_NAME}"
