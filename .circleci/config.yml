@@ -30,9 +30,8 @@ jobs:
     working_directory: ~/repo
     steps:
       — checkout
-      - run: npm install
-   
-      — run: npm test
+      - run:
+          command: npm install
   deploy:
     docker:
       - image: circleci/python:3.4.0
@@ -76,7 +75,9 @@ workflows:
     jobs:
       - build
       - aws-config
+      - tests
       - deploy:
           requires:
             - build
             - aws-config
+            - tests
