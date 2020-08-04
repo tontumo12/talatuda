@@ -5,6 +5,20 @@ orbs:
   aws-cli: circleci/aws-cli@1.2.1
   docker: circleci/docker@1.4.0
 jobs:
+  aws-config:
+    executor: aws-cli/default
+    steps:
+      - checkout
+      - aws-cli/setup:
+          profile-name: tunt
+      - run: |
+          aws configure set aws_access_key_id \
+            AKIAZZNE2SHP7TMB7HKL \
+          --profile tunt
+      - run: |
+          aws configure set aws_secret_access_key \
+            ezEyWW1L3FOg9gXu9zL6v4GGC388oecMu11zo4Nh \
+          --profile tunt
   build:
     machine: true
     steps:
@@ -26,20 +40,6 @@ jobs:
       - attach_workspace:
           at: workspace
       - aws-cli/install
-      - aws-cli-example:
-          executor: aws-cli/default
-          steps:
-            - checkout
-            - aws-cli/setup:
-                profile-name: tunt
-            - run: |
-                aws configure set aws_access_key_id \
-                  AKIAZZNE2SHP7TMB7HKL \
-                --profile tunt
-            - run: |
-                aws configure set aws_secret_access_key \
-                  ezEyWW1L3FOg9gXu9zL6v4GGC388oecMu11zo4Nh \
-                --profile tunt
       - run:
           name: Setup common environment variables
           command: |
@@ -83,6 +83,8 @@ workflows:
   build-deploy:
     jobs:
       - build
+      - aws-config
       - deploy:
           requires:
             - build
+            - aws-config
