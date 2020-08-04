@@ -26,9 +26,20 @@ jobs:
       - attach_workspace:
           at: workspace
       - aws-cli/install
-      - aws-cli/configure:
-          aws-access-key-id: "AKIAZZNE2SHP7TMB7HKL"
-          aws-region: "us-east-2"
+      - aws-cli-example:
+          executor: aws-cli/default
+          steps:
+            - checkout
+            - aws-cli/setup:
+                profile-name: tunt
+            - run: |
+                aws configure set aws_access_key_id \
+                  AKIAZZNE2SHP7TMB7HKL \
+                --profile tunt
+            - run: |
+                aws configure set aws_secret_access_key \
+                  ezEyWW1L3FOg9gXu9zL6v4GGC388oecMu11zo4Nh \
+                --profile tunt
       - run:
           name: Setup common environment variables
           command: |
