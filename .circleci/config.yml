@@ -12,13 +12,9 @@ jobs:
       - aws-cli/setup:
           profile-name: tunt
       - run: |
-          aws configure set aws_access_key_id \
-            AKIAZZNE2SHP7TMB7HKL \
-          --profile tunt
+          aws configure set aws_access_key_id = AKIAZZNE2SHP7TMB7HKL
       - run: |
-          aws configure set aws_secret_access_key \
-            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 \
-          --profile tunt
+          aws configure set aws_secret_access_key = ezEyWW1L3FOg9gXu9zL6v4GGC388oecMu11zo4Nh
   build:
     machine: true
     steps:
