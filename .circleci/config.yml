@@ -12,9 +12,9 @@ jobs:
       - aws-cli/setup:
           profile-name: tunt
       - run: |
-          aws configure set aws_access_key_id AKIAZZNE2SHP7TMB7HKL
+          aws configure set aws_access_key_id AKIAZZNE2SHP7TMB7HKL --profile tunt
       - run: |
-          aws configure set aws_secret_access_key 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
+          aws configure set aws_secret_access_key ezEyWW1L3FOg9gXu9zL6v4GGC388oecMu11zo4Nh --profile tunt
       - run: |
           aws configure set default.region us-east-2
   build:
