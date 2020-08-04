@@ -1,22 +1,117 @@
 version: 2.1
-
+orbs:
+  aws-ecr: circleci/aws-ecr@6.12.0
+  aws-ecs: circleci/aws-ecs@1.2.0
+  aws-cli: circleci/aws-cli@1.2.1
+  docker: circleci/docker@1.4.0
+setup:
+  parameters:
+    aws-access-key-id:
+      default: AKIAZZNE2SHP7TMB7HKL
+      description: |
+        AWS access key id for IAM role. Set this to the name of
+        the environment variable you will use to hold this
+        value, i.e. AWS_ACCESS_KEY.
+      type: env_var_name
+    aws-region:
+      default: us-east-2
+      description: |
+        Env var of AWS region to operate in
+        (defaults to AWS_DEFAULT_REGION)
+      type: env_var_name
+    aws-secret-access-key:
+      default: ezEyWW1L3FOg9gXu9zL6v4GGC388oecMu11zo4Nh
+      description: |
+        AWS secret key for IAM role. Set this to the name of
+        the environment variable you will use to hold this
+        value, i.e. $AWS_SECRET_ACCESS_KEY.
+      type: env_var_name
+    configure-default-region:
+      default: true
+      description: >
+        Some AWS actions don't require a region; set this to false if you do not
+        want to store a default region in ~/.aws/config
+      type: boolean
+    disable-aws-pager:
+      default: true
+      description: |
+        Set to false to skip forceful disabling of all AWS CLI output paging.
+      type: boolean
+    profile-name:
+      default: default
+      description: Profile name to be configured.
+      type: string
+    skip-install-check:
+      default: false
+      description: |
+        Set to true to skip checking for existing installations before installing.
+      type: boolean
+    version:
+      default: '2'
+      description: >-
+        Which version of the CLI to install. Version "1" and "2" are currently
+        available. Will default to "2"
+      enum:
+        - '1'
+        - '2'
+      type: enum
 jobs:
   build:
     docker:
-      - image: tontumo12/tunt:web
-        auth:
-            username: tontumo12 
-            password: Vietnam1205
-      - image: tontumo12/tunt:api
-        auth:
-          username: tontumo12 
-          password: Vietnam1205
+      - image: circleci/ruby:2.4.2-jessie-node
+    steps:
+      - checkout
+      - run:
+        name: "Update Node.js and npm"
+        command: |
+          curl -sSL "https://nodejs.org/dist/v11.10.0/node-v11.10.0-linux-x64.tar.xz" | sudo tar --strip-components=2 -xJ -C /usr/local/bin/ node-v11.10.0-linux-x64/bin/node
+          curl https://www.npmjs.com/install.sh | sudo bash
+      - run: |
+         echo "Vietnam1205" | docker login --username tontumo12 --password-stdin
+      - run: docker pull tontumo12/tunt:api
+      - run: docker pull tontumo12/tunt:web
+      - run: docker push tontumo12/tunt:api
+      - run: docker push tontumo12/tunt:web
+      - run: docker save tontumo12/tunt:api -o tunt.tar
+      - run: docker save tontumo12/tunt:web -o tunt1.tar
+      - run: docker load --input tunt.tar
+      - run: docker load --input tunt1.tar
   deploy:
-    docker:
-      - image: 673044926943.dkr.ecr.us-east-2.amazonaws.com/talatuda
-        aws_auth:
-          aws_access_key_id: AKIAZZNE2SHP7TMB7HKL
-          aws_secret_access_key: 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
+    steps:
+      - checkout
+      - setup_remote_docker
+      - attach_workspace:
+          at: workspace
+      - aws-cli/install
+      # - aws-cli/configure:
+      #     aws-access-key-id: "AKIAZZNE2SHP7TMB7HKL"
+      #     aws-region: "us-east-2"
+      - run:
+          name: Setup common environment variables
+          command: |
+            echo 'export ECS_CLUSTER_NAME="talatuda-cluster"' >> $BASH_ENV
+            echo 'export ECS_SERVICE_NAME="nginx-service-service"' >> $BASH_ENV
+            echo 'export FULL_IMAGE_NAME="otani-tunt.dkr.ecr.us-east-2.amazonaws.com/arn:aws:iam::673044926943:user/ci-cd-test:https://app.circleci.com/pipelines/github/tontumo12"' >> $BASH_ENV
+      - run:
+          name: Push image
+          command: |
+            aws --region us-east-2 ecr get-login-password | 673044926943.dkr.ecr.us-east-2.amazonaws.com/talatuda
+      - aws-ecs/update-service:
+          family: "${ECS_SERVICE_NAME}"
+          cluster-name: "${ECS_CLUSTER_NAME}"
+          container-image-name-updates: "container=${ECS_SERVICE_NAME},image-and-tag=${FULL_IMAGE_NAME}"
+          container-env-var-updates: "container=nginx-service-service,name=VERSION_INFO,value=https://app.circleci.com/pipelines/github/tontumo12_1,container=nginx-service-service,name=BUILD_DATE,value=\"$(date)\""
+          verify-revision-is-deployed: true
+      - run:
+          name: Test deployment tunt
+          command: |
+            TARGET_GROUP_ARN=$(aws ecs describe-services --cluster $ECS_CLUSTER_NAME --services $ECS_SERVICE_NAME | jq -r '.services[0].loadBalancers[0].targetGroupArn')
+            ELB_ARN=$(aws elbv2 describe-target-groups --target-group-arns $TARGET_GROUP_ARN | jq -r '.TargetGroups[0].LoadBalancerArns[0]')
+            ELB_DNS_NAME=$(aws elbv2 describe-load-balancers --load-balancer-arns $ELB_ARN | jq -r '.LoadBalancers[0].DNSName')
+            # Test multiple times to verify that the new revision has been deployed across the entire cluster
+            for attempt in {1..50}; do
+              curl -s --retry 10 http://$ELB_DNS_NAME | grep -E "Hello World!.*${CIRCLE_SHA1}_${CIRCLE_BUILD_NUM}"
+            done
 workflows:
   build-deploy:
     jobs:
