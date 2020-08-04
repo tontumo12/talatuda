@@ -58,18 +58,18 @@ setup:
 jobs:
   build:
     machine: true
-    steps:
-      - checkout
-      - run: |
-         echo "Vietnam1205" | docker login --username tontumo12 --password-stdin
-      - run: docker pull tontumo12/tunt:api
-      - run: docker pull tontumo12/tunt:web
-      - run: docker push tontumo12/tunt:api
-      - run: docker push tontumo12/tunt:web
-      - run: docker save tontumo12/tunt:api -o tunt.tar
-      - run: docker save tontumo12/tunt:web -o tunt1.tar
-      - run: docker load --input tunt.tar
-      - run: docker load --input tunt1.tar
+      steps:
+        - checkout
+        - run: |
+          echo "Vietnam1205" | docker login --username tontumo12 --password-stdin
+        - run: docker pull tontumo12/tunt:api
+        - run: docker pull tontumo12/tunt:web
+        - run: docker push tontumo12/tunt:api
+        - run: docker push tontumo12/tunt:web
+        - run: docker save tontumo12/tunt:api -o tunt.tar
+        - run: docker save tontumo12/tunt:web -o tunt1.tar
+        - run: docker load --input tunt.tar
+        - run: docker load --input tunt1.tar
   deploy:
     steps:
       - checkout
