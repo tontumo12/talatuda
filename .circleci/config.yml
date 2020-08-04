@@ -29,7 +29,7 @@ jobs:
       - run: docker push tontumo12/tunt:web
   deploy:
     docker:
-      - image: circleci/python:3.6.4
+      - image: circleci/python:3.4.0
     environment:
       AWS_DEFAULT_OUTPUT: json
     steps:
