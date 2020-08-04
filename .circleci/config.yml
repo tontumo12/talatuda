@@ -11,12 +11,9 @@ jobs:
       - checkout
       - aws-cli/setup:
           profile-name: tunt
-      - run: |
-          export AWS_ACCESS_KEY_ID=AKIAZZNE2SHPYZUURQMG
-      - run: |
-          export AWS_SECRET_ACCESS_KEY=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
-      - run: |
-          export AWS_DEFAULT_REGION=us-east-2
+      - run: echo 'aws configure set AWS_ACCESS_KEY_ID AKIAZZNE2SHPYZUURQMG --profile tunt
+             aws configure set AWS_SECRET_ACCESS_KEY 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 --profile tunt
+             aws configure set AWS_DEFAULT_REGION us-east-2'
   build:
     machine: true
     steps:
@@ -27,6 +24,15 @@ jobs:
       - run: docker pull tontumo12/tunt:web
       - run: docker push tontumo12/tunt:api
       - run: docker push tontumo12/tunt:web
+  tests:
+    docker:
+      — image: circleci/node:7.10
+    working_directory: ~/repo
+    steps:
+      — checkout
+      - run: npm install
+   
+      — run: npm test
   deploy:
     docker:
       - image: circleci/python:3.4.0
