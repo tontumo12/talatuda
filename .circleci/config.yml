@@ -24,14 +24,14 @@ jobs:
       - run: docker pull tontumo12/tunt:web
       - run: docker push tontumo12/tunt:api
       - run: docker push tontumo12/tunt:web
-  tests:
-    docker:
-      — image: circleci/node:7.10
-    working_directory: ~/repo
-    steps:
-      — checkout
-      - run:
-          command: npm install
+  # tests:
+  #   docker:
+  #     — image: circleci/node:7.10
+  #   working_directory: ~/repo
+  #   steps:
+  #     — checkout
+  #     - run:
+  #         command: npm install
   deploy:
     docker:
       - image: circleci/python:3.4.0
@@ -75,9 +75,9 @@ workflows:
     jobs:
       - build
       - aws-config
-      - tests
+      # - tests
       - deploy:
           requires:
             - build
             - aws-config
-            - tests
+            # - tests
