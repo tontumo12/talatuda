@@ -80,19 +80,10 @@ jobs:
       - setup_remote_docker
       - attach_workspace:
           at: workspace
-      # - aws-cli/install
+      - aws-cli/install
       # - aws-cli/configure:
       #     aws-access-key-id: "AKIAZZNE2SHP7TMB7HKL"
       #     aws-region: "us-east-2"
-      - run:
-        name: Install dependencies
-        working_directory: /
-        command: |
-          apt-get -y -qq update
-          apt-get -y -qq install python3.4-dev
-          curl -O https://bootstrap.pypa.io/get-pip.py
-          python3.4 get-pip.py --user
-          pip install awscli --upgrade --user
       - run:
           name: Setup common environment variables
           command: |
