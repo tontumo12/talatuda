@@ -1,0 +1,26 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: tontumo12/tunt:web
+        auth:
+            username: tontumo12 
+            password: Vietnam1205
+      - image: tontumo12/tunt:api
+        auth:
+          username: tontumo12 
+          password: Vietnam1205
+  deploy:
+    docker:
+      - image: 673044926943.dkr.ecr.us-east-2.amazonaws.com/talatuda
+        aws_auth:
+          aws_access_key_id: AKIAZZNE2SHP7TMB7HKL
+          aws_secret_access_key: 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
+workflows:
+  build-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
