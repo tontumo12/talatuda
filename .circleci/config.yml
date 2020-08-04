@@ -71,10 +71,6 @@ jobs:
       - run: docker load --input tunt.tar
       - run: docker load --input tunt1.tar
   deploy:
-    docker:
-      - image: circleci/python:3.6.4
-    environment:
-      AWS_DEFAULT_OUTPUT: json
     steps:
       - checkout
       - setup_remote_docker
@@ -93,8 +89,7 @@ jobs:
       - run:
           name: Push image
           command: |
-            eval $(aws ecr get-login --region us-east-2 --no-include-email)
-            docker push $FULL_IMAGE_NAME
+            aws --region us-east-2 ecr get-login-password | docker login --username tontumo12 --password-stdin 673044926943.dkr.ecr.us-east-2.amazonaws.com/talatuda
       - aws-ecs/update-service:
           family: "${ECS_SERVICE_NAME}"
           cluster-name: "${ECS_CLUSTER_NAME}"
