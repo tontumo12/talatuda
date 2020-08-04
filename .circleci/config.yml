@@ -84,7 +84,7 @@ jobs:
       # - aws-cli/configure:
       #     aws-access-key-id: "AKIAZZNE2SHP7TMB7HKL"
       #     aws-region: "us-east-2"
-      run:
+      - run:
         name: Install dependencies
         working_directory: /
         command: |
