@@ -89,7 +89,7 @@ jobs:
       - run:
           name: Push image
           command: |
-            aws --region us-east-2 ecr get-login-password | echo "Vietnam1205" | docker login --username tontumo12 --password-stdin 673044926943.dkr.ecr.us-east-2.amazonaws.com/talatuda
+            aws --region us-east-2 ecr get-login-password | 673044926943.dkr.ecr.us-east-2.amazonaws.com/talatuda
       - aws-ecs/update-service:
           family: "${ECS_SERVICE_NAME}"
           cluster-name: "${ECS_CLUSTER_NAME}"
