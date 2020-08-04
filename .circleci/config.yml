@@ -51,7 +51,7 @@ jobs:
           name: Push image
           command: |
             aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 673044926943.dkr.ecr.us-east-2.amazonaws.com
-            docker build -t $FULL_IMAGE_NAME .
+            docker build -t talatuda .
       - aws-ecs/update-service:
           family: "${ECS_SERVICE_NAME}"
           cluster-name: "${ECS_CLUSTER_NAME}"
