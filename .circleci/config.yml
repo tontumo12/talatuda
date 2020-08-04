@@ -87,6 +87,18 @@ jobs:
             echo 'export ECS_SERVICE_NAME="nginx-service-service"' >> $BASH_ENV
             echo 'export FULL_IMAGE_NAME="talatuda"' >> $BASH_ENV
       - run:
+          command: |
+            aws configure set aws_access_key_id \
+              $<<parameters.aws-access-key-id>> \
+              --profile <<parameters.profile-name>>
+          name: Configure AWS Access Key ID
+      - run:
+          command: |
+            aws configure set aws_secret_access_key \
+              $<<parameters.aws-secret-access-key>> \
+                --profile <<parameters.profile-name>>
+          name: Configure AWS Secret Access Key
+      - run:
           name: Push image
           command: |
             aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 673044926943.dkr.ecr.us-east-2.amazonaws.com
