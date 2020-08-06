@@ -40,12 +40,12 @@ jobs:
       - run: docker pull tontumo12/tunt:web
       - run: docker push tontumo12/tunt:api
       - run: docker push tontumo12/tunt:web
-  auto-test:
-    docker:
-      — image: circleci/node@3.0.1
-    steps:
-      — checkout
-      - run: echo 'tunt'
+  # auto-test:
+  #   docker:
+  #     — image: circleci/node@3.0.1
+  #   steps:
+  #     — checkout
+  #     - run: echo 'tunt'
   deploy:
     docker:
       - image: circleci/python:3.4.0
@@ -88,10 +88,10 @@ workflows:
   build-deploy:
     jobs:
       - build
-      - auto-test
+      # - auto-test
       - aws-config
       - deploy:
           requires:
             - build
-            - auto-test
+            # - auto-test
             - aws-config
