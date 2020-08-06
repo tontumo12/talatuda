@@ -88,10 +88,10 @@ workflows:
   build-deploy:
     jobs:
       - build
-      # - auto-test
       - aws-config
+      # - auto-test
       - deploy:
           requires:
             - build
-            # - auto-test
             - aws-config
+            # - auto-test
