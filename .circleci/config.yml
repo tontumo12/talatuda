@@ -45,8 +45,7 @@ jobs:
       — image: circleci/node@3.0.1
     steps:
       — checkout
-      - run:
-          command: echo 'tunt'
+      - run: echo 'tunt'
   deploy:
     docker:
       - image: circleci/python:3.4.0
