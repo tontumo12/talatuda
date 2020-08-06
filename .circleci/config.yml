@@ -11,9 +11,25 @@ jobs:
       - checkout
       - aws-cli/setup:
           profile-name: tunt
-      - run: echo 'aws configure set AWS_ACCESS_KEY_ID AKIAZZNE2SHPYZUURQMG --profile tunt
-             aws configure set AWS_SECRET_ACCESS_KEY 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 --profile tunt
-             aws configure set AWS_DEFAULT_REGION us-east-2'
+      - install:
+          disable-aws-pager: true
+          skip-install-check: false
+          version: 2
+      - run: 
+          command: |
+            aws configure set aws_access_key_id AKIAZZNE2SHPYZUURQMG --profile tunt
+      - run:
+          command: |
+            aws configure set aws_secret_access_key fGO2cnEVm+Ah4iB8lfyKCMtJkj/j4PBdE7CIrXKJ --profile tunt
+      - when:
+          condition: true
+          steps:
+            - run:
+                command: |
+                  aws configure set default.region us-east-2 --profile tunt
+      # - run: echo 'aws configure set AWS_ACCESS_KEY_ID AKIAZZNE2SHPYZUURQMG --profile tunt
+      #        aws configure set AWS_SECRET_ACCESS_KEY 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 --profile tunt
+      #        aws configure set AWS_DEFAULT_REGION us-east-2'
   build:
     machine: true
     steps:
@@ -24,14 +40,13 @@ jobs:
       - run: docker pull tontumo12/tunt:web
       - run: docker push tontumo12/tunt:api
       - run: docker push tontumo12/tunt:web
-  # tests:
-  #   docker:
-  #     — image: circleci/node:7.10
-  #   working_directory: ~/repo
-  #   steps:
-  #     — checkout
-  #     - run:
-  #         command: npm install
+  auto-test:
+    docker:
+      — image: circleci/node@3.0.1
+    steps:
+      — checkout
+      - run:
+          command: echo 'tunt'
   deploy:
     docker:
       - image: circleci/python:3.4.0
@@ -74,10 +89,10 @@ workflows:
   build-deploy:
     jobs:
       - build
+      - auto-test
       - aws-config
-      # - tests
       - deploy:
           requires:
             - build
+            - auto-test
             - aws-config
-            # - tests
