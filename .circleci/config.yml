@@ -48,7 +48,8 @@ jobs:
       #        aws configure set AWS_SECRET_ACCESS_KEY fGO2cnEVm+Ah4iB8lfyKCMtJkj/j4PBdE7CIrXKJ --profile tunt
       #        aws configure set AWS_DEFAULT_REGION us-east-2'
   build:
-    machine: true
+    machine:
+      image: ubuntu-1604:202007-01
     steps:
       - checkout
       - run: |
@@ -59,12 +60,14 @@ jobs:
       - run: docker push tontumo12/tunt:mysql
       - run: docker push tontumo12/tunt:api
       - run: docker push tontumo12/tunt:web
-  # auto-test:
-  #   docker:
-  #     — image: circleci/node@3.0.1
-  #   steps:
-  #     — checkout
-  #     - run: echo 'tunt'
+  auto-test:
+    docker:
+      — image: circleci/node@3.0.1
+    steps:
+      — checkout
+      - run:
+        name: "Testing-auto"
+        command: echo "testing-auto"
   # deploy:
   #   docker:
   #     - image: circleci/python:3.4.0
@@ -108,7 +111,7 @@ workflows:
     jobs:
       - build
       # - aws-config
-      # - auto-test
+      - auto-test
       # - deploy:
       #     requires:
       #       - build
