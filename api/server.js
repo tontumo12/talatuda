@@ -12,5 +12,5 @@ app.use(cors())
   console.log('CORS-enabled web server listening on port 3000')
 })
 
-let routes = require('./api/router')
+let routes = require('./class/router')
 routes(app)
