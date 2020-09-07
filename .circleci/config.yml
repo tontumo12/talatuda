@@ -61,8 +61,8 @@ jobs:
       - run: docker push tontumo12/tunt:api
       - run: docker push tontumo12/tunt:web
   auto-test:
-    docker:
-      — image: circleci/node@3.0.1
+    machine:
+      image: ubuntu-1604:202007-01
     steps:
       — checkout
       - run:
