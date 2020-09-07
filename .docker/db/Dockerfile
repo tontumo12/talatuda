@@ -15,4 +15,4 @@ ADD hotel_manager.sql ./hotel_manager.sql
 RUN sed -i 's/MYSQL_DATABASE/'talatuda'/g' ./hotel_manager.sql
 RUN cp ./hotel_manager.sql /docker-entrypoint-initdb.d
 
-EXPOSE 3306
+EXPOSE 12345
