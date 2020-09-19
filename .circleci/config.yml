@@ -4,6 +4,7 @@ orbs:
   aws-ecs: circleci/aws-ecs@1.2.0
   aws-cli: circleci/aws-cli@1.2.1
   docker: circleci/docker@1.4.0
+  cypress: cypress-io/cypress@1
 jobs:
   # verify-deployment:
   #   docker:
@@ -60,14 +61,21 @@ jobs:
       - run: docker push tontumo12/tunt:mysql
       - run: docker push tontumo12/tunt:api
       - run: docker push tontumo12/tunt:web
-  auto-test:
-    machine:
-      image: ubuntu-1604:202007-01
-    steps:
-      — checkout
-      - run:
-        name: "Testing-auto"
-        command: echo "testing-auto"
+  test:
+    jobs:
+      - cypress/install
+      - cypress/run:
+          requires:
+            - cypress/install
+      - release:
+          requires:
+            - cypress/run
+  # auto-test:
+  #   docker:
+  #     — image: circleci/node@3.0.1
+  #   steps:
+  #     — checkout
+  #     - run: echo 'tunt'
   # deploy:
   #   docker:
   #     - image: circleci/python:3.4.0
@@ -107,7 +115,7 @@ jobs:
   #             curl -s --retry 10 http://$ELB_DNS_NAME | grep -E "Hello World!.*${CIRCLE_SHA1}_${CIRCLE_BUILD_NUM}"
   #           done
 workflows:
-  build-deploy:
+  build:
     jobs:
       - build
       # - aws-config
@@ -117,3 +125,6 @@ workflows:
       #       - build
       #       - aws-config
             # - auto-test
+  test:
+    jobs:
+      - test
