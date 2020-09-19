@@ -62,14 +62,11 @@ jobs:
       - run: docker push tontumo12/tunt:api
       - run: docker push tontumo12/tunt:web
   test:
-    jobs:
-      - cypress/install
-      - cypress/run:
-          requires:
-            - cypress/install
-      - release:
-          requires:
-            - cypress/run
+    executor: cypress/base-10
+    steps:
+      - attach_workspace:
+        at: ~/
+      - run: npm run semantic-release
   # auto-test:
   #   docker:
   #     — image: circleci/node@3.0.1
@@ -127,4 +124,10 @@ workflows:
             # - auto-test
   test:
     jobs:
-      - test
+      - cypress/install
+      - cypress/run:
+          requires:
+            - cypress/install
+      - release:
+          requires:
+            - cypress/run
