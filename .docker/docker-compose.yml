@@ -15,7 +15,7 @@ services:
       context: ../api
       dockerfile: ../.docker/api/Dockerfile
     ports:
-      - "8080:8080"
+      - "12332:3000"
   web:
     image: tontumo12/tunt:web
     container_name: tunt_web
@@ -23,4 +23,6 @@ services:
       context: ../web
       dockerfile: ../.docker/web/Dockerfile
     ports:
-      - "3000:3000"
+      - "12333:8080"
+    depends_on:
+      - mysql
