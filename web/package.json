@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "autoinstall": "F=node_modules/.cache/last-install.md5; if (! test -f $F) || (! md5sum -c $F --status) ; then npm install --no-save && mkdir -p $(dirname $F) && md5sum package-lock.json > $F; fi",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
