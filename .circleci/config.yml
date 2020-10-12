@@ -4,52 +4,52 @@ orbs:
   aws-ecs: circleci/aws-ecs@1.2.0
   aws-cli: circleci/aws-cli@1.2.1
   docker: circleci/docker@1.4.0
-  cypress: cypress-io/cypress@1
 jobs:
-  # verify-deployment:
-  #   docker:
-  #     - image: 'circleci/python:3.7.1'
-  #   steps:
-  #     - aws-cli/install
-  #     - aws-cli/configure:
-  #         aws-access-key-id: AKIAZZNE2SHPYZUURQMG
-  #         aws-region: us-east-2
-  #     - run:
-  #         name: test
-  #         command: >
-  #           TASK_DEFINITION_ARN=$(aws ecs describe-task-definition \
-  #               --task-definition ${MY_APP_PREFIX}-service \
-  #               --output text \
-  #               --query 'taskDefinition.taskDefinitionArn')
-  #           echo "export TASK_DEFINITION_ARN='${TASK_DEFINITION_ARN}'" >>
-  #           $BASH_ENV
-  #     - aws-ecs/verify-revision-is-deployed:
-  #         family: '${MY_APP_PREFIX}-service'
-  #         cluster-name: '${MY_APP_PREFIX}-cluster'
-  #         task-definition-arn: '${TASK_DEFINITION_ARN}'
-  # aws-config:
-  #   executor: aws-cli/default
-  #   steps:
-  #     - checkout
-  #     - aws-cli/setup:
-  #         profile-name: tunt
-  #     - run: 
-  #         command: |
-  #           aws configure set aws_access_key_id AKIAZZNE2SHPYZUURQMG --profile tunt
-  #     - run:
-  #         command: |
-  #           aws configure set aws_secret_access_key fGO2cnEVm+Ah4iB8lfyKCMtJkj/j4PBdE7CIrXKJ --profile tunt
-  #     - when:
-  #         condition: true
-  #         steps:
-  #           - run:
-  #               command: |
-  #                 aws configure set default.region us-east-2 --profile tunt
-      # - run: echo 'aws configure set AWS_ACCESS_KEY_ID AKIAZZNE2SHPYZUURQMG --profile tunt
-      #        aws configure set AWS_SECRET_ACCESS_KEY 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 --profile tunt
-      #        aws configure set AWS_DEFAULT_REGION us-east-2'
+  verify-deployment:
+    docker:
+      - image: 'circleci/python:3.7.1'
+    steps:
+      - aws-cli/install
+      - aws-cli/configure:
+          aws-access-key-id: AKIARL7SOIRRVBJSOQMW
+          aws-region: us-east-2
+      - run:
+          name: test
+          command: >
+            TASK_DEFINITION_ARN=$(aws ecs describe-task-definition \
+                --task-definition ${MY_APP_PREFIX}-service \
+                --output text \
+                --query 'taskDefinition.taskDefinitionArn')
+            echo "export TASK_DEFINITION_ARN='${TASK_DEFINITION_ARN}'" >>
+            $BASH_ENV
+      - aws-ecs/verify-revision-is-deployed:
+          family: '${MY_APP_PREFIX}-service'
+          cluster-name: '${MY_APP_PREFIX}-cluster'
+          task-definition-arn: '${TASK_DEFINITION_ARN}'
+  aws-config:
+    executor: aws-cli/default
+    steps:
+      - checkout
+      - aws-cli/setup:
+          profile-name: tunt
+      - run: 
+          command: |
+            aws configure set aws_access_key_id AKIARL7SOIRRVBJSOQMW --profile tunt
+      - run:
+          command: |
+            aws configure set aws_secret_access_key oogc6Fs5Yz3IZ4nBhB2z2NRinNuch52EX3pas6G1 --profile tunt
+      - when:
+          condition: true
+          steps:
+            - run:
+                command: |
+                  aws configure set default.region us-east-2 --profile tunt
+      - run: echo 'aws configure set AWS_ACCESS_KEY_ID AKIARL7SOIRRVBJSOQMW --profile tunt
+             aws configure set AWS_SECRET_ACCESS_KEY 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 --profile tunt
+             aws configure set AWS_DEFAULT_REGION us-east-2'
   build:
-    machine: true
+    machine:
+      image: ubuntu-1604:202007-01
     steps:
       - checkout
       - run: |
@@ -60,70 +60,50 @@ jobs:
       - run: docker push tontumo12/tunt:mysql
       - run: docker push tontumo12/tunt:api
       - run: docker push tontumo12/tunt:web
-  test:
-    jobs:
-      - cypress/install
-      - cypress/run:
-          requires:
-            - cypress/install
-      - release:
-          requires:
-            - cypress/run
-  # auto-test:
-  #   docker:
-  #     — image: circleci/node@3.0.1
-  #   steps:
-  #     — checkout
-  #     - run: echo 'tunt'
-  # deploy:
-  #   docker:
-  #     - image: circleci/python:3.4.0
-  #   environment:
-  #     AWS_DEFAULT_OUTPUT: json
-  #   steps:
-  #     - checkout
-  #     - setup_remote_docker
-  #     - attach_workspace:
-  #         at: workspace
-  #     - aws-cli/install
-  #     - run:
-  #         name: Setup common environment variables
-  #         command: |
-  #           echo 'export ECS_CLUSTER_NAME="talatuda-cluster"' >> $BASH_ENV
-  #           echo 'export ECS_SERVICE_NAME="nginx-service-service"' >> $BASH_ENV
-  #           echo 'export FULL_IMAGE_NAME="talatuda"' >> $BASH_ENV
-  #     - run:
-  #         name: Push image
-  #         command: |
-  #           aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 673044926943.dkr.ecr.us-east-2.amazonaws.com
-  #           docker build -t talatuda
-  #     - aws-ecs/update-service:
-  #         family: "${ECS_SERVICE_NAME}"
-  #         cluster-name: "${ECS_CLUSTER_NAME}"
-  #         container-image-name-updates: "container=${ECS_SERVICE_NAME},image-and-tag=${FULL_IMAGE_NAME}"
-  #         container-env-var-updates: "container=nginx-service-service,name=VERSION_INFO,value=https://app.circleci.com/pipelines/github/tontumo12_1,container=nginx-service-service,name=BUILD_DATE,value=\"$(date)\""
-  #         verify-revision-is-deployed: true
-  #     - run:
-  #         name: Test deployment tunt
-  #         command: |
-  #           TARGET_GROUP_ARN=$(aws ecs describe-services --cluster $ECS_CLUSTER_NAME --services $ECS_SERVICE_NAME | jq -r '.services[0].loadBalancers[0].targetGroupArn')
-  #           ELB_ARN=$(aws elbv2 describe-target-groups --target-group-arns $TARGET_GROUP_ARN | jq -r '.TargetGroups[0].LoadBalancerArns[0]')
-  #           ELB_DNS_NAME=$(aws elbv2 describe-load-balancers --load-balancer-arns $ELB_ARN | jq -r '.LoadBalancers[0].DNSName')
-  #           # Test multiple times to verify that the new revision has been deployed across the entire cluster
-  #           for attempt in {1..50}; do
-  #             curl -s --retry 10 http://$ELB_DNS_NAME | grep -E "Hello World!.*${CIRCLE_SHA1}_${CIRCLE_BUILD_NUM}"
-  #           done
+  deploy:
+    docker:
+      - image: circleci/python:3.4.0
+    environment:
+      AWS_DEFAULT_OUTPUT: json
+    steps:
+      - checkout
+      - setup_remote_docker
+      - attach_workspace:
+          at: workspace
+      - aws-cli/install
+      - run:
+          name: Setup common environment variables
+          command: |
+            echo 'export ECS_CLUSTER_NAME="talatuda-cluster"' >> $BASH_ENV
+            echo 'export ECS_SERVICE_NAME="nginx-service-service"' >> $BASH_ENV
+            echo 'export FULL_IMAGE_NAME="talatuda"' >> $BASH_ENV
+      - run:
+          name: Push image
+          command: |
+            aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 673044926943.dkr.ecr.us-east-2.amazonaws.com
+            docker build -t talatuda
+      - aws-ecs/update-service:
+          family: "${ECS_SERVICE_NAME}"
+          cluster-name: "${ECS_CLUSTER_NAME}"
+          container-image-name-updates: "container=${ECS_SERVICE_NAME},image-and-tag=${FULL_IMAGE_NAME}"
+          container-env-var-updates: "container=nginx-service-service,name=VERSION_INFO,value=https://app.circleci.com/pipelines/github/tontumo12_1,container=nginx-service-service,name=BUILD_DATE,value=\"$(date)\""
+          verify-revision-is-deployed: true
+      - run:
+          name: Test deployment tunt
+          command: |
+            TARGET_GROUP_ARN=$(aws ecs describe-services --cluster $ECS_CLUSTER_NAME --services $ECS_SERVICE_NAME | jq -r '.services[0].loadBalancers[0].targetGroupArn')
+            ELB_ARN=$(aws elbv2 describe-target-groups --target-group-arns $TARGET_GROUP_ARN | jq -r '.TargetGroups[0].LoadBalancerArns[0]')
+            ELB_DNS_NAME=$(aws elbv2 describe-load-balancers --load-balancer-arns $ELB_ARN | jq -r '.LoadBalancers[0].DNSName')
+            # Test multiple times to verify that the new revision has been deployed across the entire cluster
+            for attempt in {1..50}; do
+              curl -s --retry 10 http://$ELB_DNS_NAME | grep -E "Hello World!.*${CIRCLE_SHA1}_${CIRCLE_BUILD_NUM}"
+            done
 workflows:
   build:
     jobs:
       - build
-      # - aws-config
-      # - auto-test
-      # - deploy:
-      #     requires:
-      #       - build
-      #       - aws-config
-            # - auto-test
-  test:
-    jobs:
-      - test
+      - aws-config
+      - deploy:
+          requires:
+            - aws-config
+            - build

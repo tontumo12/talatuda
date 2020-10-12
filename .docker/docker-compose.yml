@@ -1,21 +1,39 @@
 version: '3.3'
 services:
-  mysql:
-    image: tontumo12/tunt:mysql
-    container_name: tunt_db
-    build:
-      context: ./db
-      dockerfile: ./Dockerfile
+  db:
+    image: mysql:5.7
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
+    restart: always
+    environment:
+      - MYSQL_USER=tunt
+      - MYSQL_PASSWORD=120597
+      - MYSQL_ROOT_PASSWORD=12051997
+      - MYSQL_DATABASE=talatuda
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
     ports:
-      - "12345:12345"
+      - 12330:3306
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    depends_on:
+      - db
+    environment:
+      - PMA_HOST=db
+      - MYSQL_ROOT_PASSWORD=12051997
+    ports:
+      - 12331:80
   api:
     image: tontumo12/tunt:api
     container_name: tunt_api
+    restart: always
     build:
       context: ../api
       dockerfile: ../.docker/api/Dockerfile
     ports:
-      - "8080:8080"
+      - "12332:3000"
+    depends_on:
+      - db
   web:
     image: tontumo12/tunt:web
     container_name: tunt_web
@@ -23,4 +41,4 @@ services:
       context: ../web
       dockerfile: ../.docker/web/Dockerfile
     ports:
-      - "3000:3000"
+      - 12333:8080
