@@ -11,6 +11,8 @@ services:
       - MYSQL_ROOT_PASSWORD=12051997
       - MYSQL_DATABASE=talatuda
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - 12330:3306
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     restart: always
@@ -33,7 +35,7 @@ services:
     depends_on:
       - db
   web:
-    image: tontumo12/tunt:vue
+    image: tontumo12/tunt:web
     container_name: tunt_web
     build:
       context: ../web
